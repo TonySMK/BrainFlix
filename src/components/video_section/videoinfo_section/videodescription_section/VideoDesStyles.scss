@@ -1,0 +1,11 @@
+@use "../../../../styles/partials/bootstrap" as bs;
+@import "../../../../styles/partials/variables";
+
+.videodesbackground{
+    @include bs.padding16;
+}
+
+.videodes{
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}

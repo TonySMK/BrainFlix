@@ -1,0 +1,99 @@
+@use '../../styles/partials/bootstrap' as bs;
+@import '../../styles/partials/variables';
+
+.nav{
+    background-color: $white-prime;
+    @include bs.padding16;
+    height: auto;
+    // height: 200px;
+    // this is not respecting the imported htmls from the components
+    display: flex;
+    flex-direction:column;
+    // justify-content: space-between;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+
+
+    &__first{
+        // background-color: grey;
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        
+    }
+
+    &__second{
+        background-color: $white-prime;
+        // height: 100px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+}
+
+.mainlogo{
+    background-color: $white-prime;
+    width: 120px;
+    height: 25px;
+    position: relative;
+    margin-bottom: 1rem;
+
+    &__img{
+        width: 100%;
+        height: 100%;
+    }
+
+    &__link{
+        // background-color: red;
+        position: absolute;
+        width: inherit;
+        height: inherit;
+        left: 0px;
+        opacity: 0;
+        // this opacity attribute allow the element to have value, but display i
+    }
+}
+
+.searchcontainer{
+    background-color: bisque;
+    display: flex;
+    flex-wrap: wrap;
+    height: 40px;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    position: relative;
+    flex-grow: 1;
+    // width: 300px;
+
+    &__imgwarp{
+        // background-color: red;
+        height: 100%;
+        aspect-ratio: 1/1;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &__iconsearch{
+            width: 50%;
+            // position: absolute;
+            // display: block;
+            // margin: auto;
+        }
+    }
+
+    &__inputtext{
+        padding-left: 2.5rem;
+        width: 100%;
+        border-radius: 4px;
+        border: 1px solid grey;
+        outline: none;
+        // border-left: black;
+        // might need to make this padding value something else more deliberate...
+    }
+}
+.buttonupload{
+    width: 100%;
+    background-color: rgb(200, 210, 210);
+    display: flex;
+}

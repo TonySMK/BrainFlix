@@ -1,0 +1,37 @@
+@use "../../../../styles/partials/bootstrap" as bs;
+@import "../../../../styles/partials/variables";
+
+
+.videostatsbackground{
+    background-color: aqua;
+    @include bs.padding16;
+}
+
+.videostats{
+    border-bottom: 1px solid $sliver-prime;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    
+    padding-right: 2.5rem;
+    // padding-right for "right justification"
+}
+
+.leftstats{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+    // the "gap" attribute determines the size between for both left and right side
+}
+
+.rightstats{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    &__likes, &__veiws{
+        display: flex;
+    }
+}
