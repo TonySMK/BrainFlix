@@ -8,7 +8,7 @@ export default function Button(props){
         iconselect = UploadIcon
     }
     return(
-        <div className={"button"+props.name}>
+        <div onClick={props.clickHandler} className={"button"+props.name}>
             <img className={"button"+props.name+"__icon"} src={iconselect} alt={props.name}/>
             <div className={"button"+props.name+"__text"}>{props.name}</div>
         </div>

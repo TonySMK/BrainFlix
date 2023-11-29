@@ -1,0 +1,19 @@
+@use "../../../../styles/partials/bootstrap" as bs;
+@import "../../../../styles/partials/variables";
+
+.cardouterwrap{
+    display: flex;
+    border-bottom: 1px solid $sliver-prime;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.cardright{
+    margin-left: 1rem;
+
+    &__top{
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+    }
+}

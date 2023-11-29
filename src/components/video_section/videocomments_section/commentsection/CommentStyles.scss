@@ -7,14 +7,14 @@
 
 .commentsection{
     background-color: aquamarine;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid $sliver-prime;
+
 }
 
 .commentform{
     background-color: antiquewhite;
     display: flex;
     flex-direction: column;
+    border-bottom: 1px solid $sliver-prime;
 
     &__bot{
         padding-top: 1rem;
@@ -32,7 +32,7 @@
     flex-direction: column;
     flex-grow: 1;
 
-    padding-left: 1rem;
+    margin-left: 1rem;
 
     &__label{
         margin-bottom: 1rem;

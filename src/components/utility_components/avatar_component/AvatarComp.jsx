@@ -6,6 +6,7 @@ export default function AvatarLogo(props){
     let iconimg
     let suffix
     let alttext
+    
     if (props.icon==="true"){
         iconimg=AvatarIcon
         suffix= "img1"

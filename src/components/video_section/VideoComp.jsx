@@ -1,5 +1,6 @@
+import "./VideoCompStyles.scss"
 export default function VideoComp(){
     return(
-        <video></video>
+        <video className="videowrap" controls></video>
     )
 }

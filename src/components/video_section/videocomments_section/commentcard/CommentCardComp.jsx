@@ -1,8 +1,14 @@
+import "./CommentCardStyles.scss";
+import AvatarComp from "../../../utility_components/avatar_component/AvatarComp.jsx"
+
 export default function CommentCard(props){
     return(
         <div className="cardouterwrap">
             <div className="cardleft">
-                <div className="avatarcontainer"></div>
+                <AvatarComp 
+                    location="formicon"
+                    icon="false"
+                />
             </div>
 
             <div className="cardright">
