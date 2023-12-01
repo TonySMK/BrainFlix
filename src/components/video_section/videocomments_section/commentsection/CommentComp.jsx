@@ -1,10 +1,10 @@
 import "./CommentStyles.scss";
 import CommentCard from "../commentcard/CommentCardComp.jsx";
 import AvatarComp from "../../../utility_components/avatar_component/AvatarComp.jsx";
-import Data from "../../../../data/video-details.json"
 import Button from "../../../utility_components/button_component/ButtonComp.jsx";
 
-export default function CommentSection() {
+export default function CommentSection(props) {
+    console.log(props.comments)
 
 
     return(
@@ -35,10 +35,7 @@ export default function CommentSection() {
 
                 <div className="commentscollection">
                     <CommentCard 
-                        name= {Data[0].comments[0].name}
-                        message={Data[0].comments[0].comment} 
-                        date={Data[0].comments[0].timestamp} 
-                        />
+                    comms = {props.comments}/>
                 </div>
             </div>
         </div>
