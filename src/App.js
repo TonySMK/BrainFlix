@@ -1,68 +1,107 @@
+// auxiliary imports
 import './App.scss';
-import GeneralVideoData from "./data/video-details.json"
-import SidebarVideoData from "./data/videos.json"
+import { useState } from 'react';
+import BodyData from "./data/video-details.json"
+import SDData from "./data/videos.json"
+import {timeElapsed, dateCoverstion} from "./utilityfunctions.js"
+
+// components
 import NavBarComp from './components/navbar_section/NavBarComp.jsx';
 import VideoComp from "./components/video_section/VideoComp.jsx";
 import VideoTitleComp from "./components/video_section/videoinfo_section/videotitle/VideoTitleComp.jsx"
 import VideoStatsComp from "./components/video_section/videoinfo_section/videostats/VideoStatsComp.jsx"
 import VideoDescription from "./components/video_section/videoinfo_section/videodescription_section/VideoDesComp.jsx"
 import CommentComp from "./components/video_section/videocomments_section/commentsection/CommentComp.jsx"
+import CommentCard from "./components/video_section/videocomments_section/commentcard/CommentCardComp.jsx"
 import NextVideoSection from './components/nextvideo_section/NextVideoSectionComp.jsx';
-import { useState } from 'react';
-function App() {
 
-  let generaldata = GeneralVideoData
-  // the genvidarray contains in data the get used the overall body of site
-  let sidebardata = SidebarVideoData
-  // gensiderbat contains the data in the sidebar
-  let masaterarry = [GeneralVideoData, SidebarVideoData]
-  /*
-  gensidebar.forEach(object => {
-    // this adds a UUID property for each object in the array
-    let i = 0
-    object.key=uuidv4(i++)
-  })
-  console.log(gensidebar)
-  */
-  // console.log(DatatNextVideo[0])
-  console.log(generaldata)
 
-  let initalfilteredsidebar = SidebarVideoData.filter(subject => subject.title !== "BMX Rampage: 2021 Highlights")
-  console.log(initalfilteredsidebar)
 
-  let intialvideoselect = generaldata[0]
-  // let intialvideoselect = generaldata[index = 0]
-  console.log(intialvideoselect)
-  let [selectvideoarray, setselectvideoarray] = useState=(GeneralVideoData)
+export default function App() {
+  const bodydata = BodyData
+  const sidedata = SDData
+  // console.log(bodydata)
 
-  console.log(selectvideoarray)
+  const initalmainbodyinfo = bodydata.filter((bodydataset)=> bodydataset.title === bodydata[0].title)
+
+  // console.log(initalmainbodyinfo)
+  const[mainbodyinfo, setMainBodyInfo] = useState(initalmainbodyinfo[0])
+
+  // console.log(mainbodyinfo)
+
+  function updatemainbodyinfo(inboundobject){
+    const updatedmainbodyinfo = bodydata.filter((bodydataset)=> bodydataset.title === inboundobject)
+    // console.log("0000000000000000000000000000")
+    // console.log(updatedmainbodyinfo)
+    setMainBodyInfo(updatedmainbodyinfo[0])
+  }
+
+  // console.log(mainbodyinfo)
+  // console.log(mainbodyinfo.comments)
+  // ---------------------------------------------------------------------
+  const commentsdata = mainbodyinfo.comments
+  // console.log(commentsdata)
+
+  const intialcommentrender = commentsdata.map((iteration) => (
+    <CommentCard
+      message={iteration.comment}
+      name={iteration.name}
+      time={dateCoverstion(iteration.timestamp)}
+      likes={iteration.likes}
+      key={iteration.id}
+    />
+  ));
+
+
+  const [commentrender, setCommentRender] = useState(intialcommentrender);
+
+  
+  function updatedcommentrender(datafromdata1){
+    const forcorpresondingdata = bodydata.filter((bodydataset)=> bodydataset.title === datafromdata1)
+    let updatedcommentarray = forcorpresondingdata[0].comments
+    console.log(updatedcommentarray)
+    const updatedcommentrender = updatedcommentarray.map((iteration) => (
+      <CommentCard
+        message={iteration.comment}
+        name={iteration.name}
+        time={dateCoverstion(iteration.timestamp)}
+        likes={iteration.likes}
+        key={iteration.id}
+      />
+      ))
+    setCommentRender(updatedcommentrender)
+  }
 
   // ---------------------------------------------------------------------
   return (
     <>
     <NavBarComp />
     <VideoComp 
-        data = {sidebardata[0]}/>
-    <VideoTitleComp 
-    title={selectvideoarray.title}
+      videodata = {mainbodyinfo.video}
+      imagedata = {mainbodyinfo.image}
+    />
+    <VideoTitleComp
+      titledata = {mainbodyinfo.title}
     />
     <VideoStatsComp 
-      likes={selectvideoarray.likes}
-      views={selectvideoarray.views}
-      date={selectvideoarray.timestamp}
-      channel={selectvideoarray.channel}
+      channeldata = {mainbodyinfo.channel}
+      timestampdata = {dateCoverstion(mainbodyinfo.timestamp)}
+      likesdata = {mainbodyinfo.likes}
+      viewsdata = {mainbodyinfo.views}
     />
     <VideoDescription 
-    description = {selectvideoarray.description}/>
-    <CommentComp 
-      comments={selectvideoarray.comments}
+    descriptiondata = {mainbodyinfo.description}
     />
-    <NextVideoSection 
-    data = {sidebardata}
-    // the passes the unfiltered (entire array of objects)
+    <CommentComp 
+      mappedelements={commentrender}
+      commentdata={commentsdata}
+    />
+    <NextVideoSection
+      onClickInfoHandler={updatemainbodyinfo}
+      onClickForCommentHandler={updatedcommentrender}
+      data1={bodydata}
+      data2={sidedata}
     />
     </>
   );
-}
-
-export default App;
+};

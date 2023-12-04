@@ -1,9 +1,9 @@
 import "./VideoTitleStyles.scss";
 
-export default function TitleVideoComp(props) {
-    return(
-        <div className="videotitlebackground">
-            <div className="videotitle">{props.title}</div>
-        </div>
-    );
+export default function TitleVideoComp({ titledata }) {
+  return (
+    <div className="videotitlebackground">
+      <div className="videotitle">{titledata}</div>
+    </div>
+  );
 }

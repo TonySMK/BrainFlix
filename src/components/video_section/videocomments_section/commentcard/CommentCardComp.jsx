@@ -1,29 +1,23 @@
 import "./CommentCardStyles.scss";
-import AvatarComp from "../../../utility_components/avatar_component/AvatarComp.jsx"
+import AvatarComp from "../../../utility_components/avatar_component/AvatarComp.jsx";
 
-export default function CommentCard(props){
-    let commentlist = props.comms
-    
-    let card = commentlist.map(comment =>
-        <div key={comment.id} className="cardouterwrap">
-            <div className="cardleft">
-            <AvatarComp 
-                location="formicon"
-                icon="false"
-            />
-            </div>
+export default function CommentCard({ message, name, time, likes }) {
+  return (
+    <>
+      <div className="cardouterwrap">
+        <div className="cardleft">
+          <AvatarComp location="formicon" icon="false" />
+        </div>
 
-            <div className="cardright">
-                <div className="cardright__top">
-                    <div className="cardright__top__name">{comment.name}</div>
-                    <div className="cardright__top__date">{comment.timestamp}</div>
-                </div>
+        <div className="cardright">
+          <div className="cardright__top">
+            <div className="cardright__top__name">{name}</div>
+            <div className="cardright__top__date">{time}</div>
+          </div>
 
-                <div className="cardright__mid">{comment.comment}</div>
-            </div>
-        </div>);
-
-    return(
-        <>{card}</>
-    );
+          <div className="cardright__mid">{message}</div>
+        </div>
+      </div>
+    </>
+  );
 }

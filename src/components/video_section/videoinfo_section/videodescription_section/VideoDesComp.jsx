@@ -1,9 +1,9 @@
 import "./VideoDesStyles.scss";
 
-export default function VideoDesComp(props){
-    return(
-        <div className="videodesbackground">
-            <div className="videodes">{props.description}</div>
-        </div>
-    )
+export default function VideoDesComp({ descriptiondata }) {
+  return (
+    <div className="videodesbackground">
+      <div className="videodes">{descriptiondata}</div>
+    </div>
+  );
 }
