@@ -1,6 +1,8 @@
-import "./VideoCompStyles.scss"
-export default function VideoComp(){
-    return(
-        <video className="videowrap" controls></video>
-    )
+import "./_VideoCompStyles.scss";
+export default function VideoComp({ videodata, imagedata }) {
+  return (
+    <video className="videowrap" poster={imagedata} controls>
+      <source src={videodata} />
+    </video>
+  );
 }

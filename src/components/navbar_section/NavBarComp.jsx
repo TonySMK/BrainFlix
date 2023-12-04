@@ -1,4 +1,4 @@
-import "./NavBarStyles.scss";
+import "./_NavBarStyles.scss";
 import ButtonComp from "../utility_components/button_component/ButtonComp";
 import AvatarComp from "../utility_components/avatar_component/AvatarComp";
 import BrainflixLogo from "../../assets/logo/BrainFlix-logo.svg";

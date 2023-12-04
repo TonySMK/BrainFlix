@@ -1,4 +1,4 @@
-import "./NextVideoSectionStyles.scss";
+import "./_NextVideoSectionStyles.scss";
 import { useState } from "react";
 
 import NextVideoCard from "./nextvideocard_section/NextVideoCardComp.jsx";
