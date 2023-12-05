@@ -1,0 +1,14 @@
+@use "../../styles/partials/bootstrap" as bs;
+@import "../../styles/partials/variables";
+
+.videowrap {
+  width: 100%;
+  height: 56.25vw;
+  background-color: black;
+  @include bs.tablet{
+    height: 30rem;
+    //fix
+    aspect-ratio: 1/0.5;
+    //fix
+  }
+}
