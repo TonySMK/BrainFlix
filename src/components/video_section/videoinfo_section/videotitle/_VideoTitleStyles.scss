@@ -2,13 +2,18 @@
 @import "../../../../styles/partials/variables";
 
 .videotitlebackground{
-    background-color:aquamarine;
+    // background-color:aquamarine;
     @include bs.padding16;
 }
 .videotitle{
     padding-top: 1rem;
     padding-bottom: 1rem;
-    border-bottom: 1px solid $sliver-prime;
+    border-bottom: 1px solid $silver-prime;
+    @include bs.font700(24px, 32px, $black-prime);
+    
+    @include bs.tablet{
+        @include bs.font700(33px, 44px, $black-prime);
+    }
 
     padding-right: 2.5rem;
     // padding-right for "right justification"

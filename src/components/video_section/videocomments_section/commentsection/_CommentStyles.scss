@@ -5,15 +5,16 @@
   @include bs.padding16;
 }
 
-.commentsection {
-  background-color: aquamarine;
-}
-
 .commentform {
-  background-color: antiquewhite;
+  // background-color: antiquewhite;
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid $sliver-prime;
+  border-bottom: 1px solid $silver-prime;
+
+  &__top{
+    @include bs.font700(13px, 18px, $black-prime);
+
+  }
 
   &__bot {
     padding-top: 1rem;
@@ -23,5 +24,5 @@
   }
 }
 .commentleft {
-  padding-top: 2.25rem;
+  padding-top: 1.25rem;
 }

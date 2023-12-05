@@ -1,4 +1,4 @@
-import "./VideoDesStyles.scss";
+import "./_VideoDesStyles.scss";
 
 export default function VideoDesComp({ descriptiondata }) {
   return (

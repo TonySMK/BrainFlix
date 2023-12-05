@@ -1,4 +1,4 @@
-import "./VideoTitleStyles.scss";
+import "./_VideoTitleStyles.scss";
 
 export default function TitleVideoComp({ titledata }) {
   return (

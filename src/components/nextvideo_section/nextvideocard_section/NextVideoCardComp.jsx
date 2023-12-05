@@ -1,4 +1,4 @@
-import "./NextVideoCardStyles.scss";
+import "./_NextVideoCardStyles.scss";
 
 export default function NextVideoCard({
   data2,

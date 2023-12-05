@@ -23,6 +23,7 @@ export default function NavBarComp() {
 
         <div className="nav__second">
           <div className="searchcontainer">
+            
             <div className="searchcontainer__imgwarp">
               <img
                 className="searchcontainer__imgwarp__iconsearch"
@@ -30,6 +31,7 @@ export default function NavBarComp() {
                 alt="sdasd"
               />
             </div>
+
             <input
               className="searchcontainer__inputtext"
               type="text"
@@ -38,7 +40,7 @@ export default function NavBarComp() {
             />
           </div>
           <AvatarComp location="nav" icon="true" />
-          <ButtonComp name="upload" />
+          <ButtonComp name="upload"/>
         </div>
       </nav>
     </header>

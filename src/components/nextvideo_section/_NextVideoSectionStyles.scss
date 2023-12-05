@@ -12,10 +12,11 @@
 
     &__title{
         text-transform: uppercase;
+        @include bs.font400(13px, 18px, $silver-prime)
     }
 
     &__list{
-        background-color: bisque;
+        // background-color: bisque;
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;

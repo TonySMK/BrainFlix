@@ -8,4 +8,6 @@
 .videodes{
     padding-top: 1rem;
     padding-bottom: 1rem;
+
+    @include bs.font400(13px, 18px, $black-prime)
 }

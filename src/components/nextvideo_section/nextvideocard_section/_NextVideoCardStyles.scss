@@ -6,15 +6,15 @@
     justify-content: space-between;
     gap: 1rem;
     // max-height: 4.5rem;
-    height:3rem;
+    height:4rem;
 
     &__thumbnailcontainer{
-        background-color: red;
+        // background-color: red;
         // display: flex;
         // justify-content: center;
         // align-items: center;
-        min-width: 80px;
-        width: 80px;
+        min-width: 6.5rem;
+        width: 6.5rem;
         // aspect-ratio: 1.7/1;
         border-radius: 4px;
         overflow: hidden;
@@ -35,17 +35,25 @@
     }
 
     &__info{
-        background-color: aqua;
+        // background-color: rgb(13, 81, 81);
         height: 100%;
         flex-grow: 1;
-        // display: flex;
-        // flex-direction: column;
-        // justify-content: space-between;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
 
 
         .title{
-            overflow: hidden;
-            text-overflow: ellipsis; 
+            // white-space: normal;
+            // background-color: rgb(199, 210, 202)(30, 0, 255);
+            text-overflow: hidden;
+            text-overflow: ellipsis;
+            @include bs.font700(none, 18px, $black-prime);
+            max-height: 75%;
+        }
+
+        .author{
+            @include bs.font400(13px, 18px, $black-prime);
         }
     }
 }

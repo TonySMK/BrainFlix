@@ -1,6 +1,6 @@
 import Veiwicon from "../../../../assets/icons/views.svg";
 import Likeicon from "../../../../assets/icons/likes.svg";
-import "./VideoStatsStyles.scss";
+import "./_VideoStatsStyles.scss";
 
 export default function VideoStatsComp({
   channeldata,
@@ -15,6 +15,7 @@ export default function VideoStatsComp({
           <div className="leftstats__author">{`By ${channeldata}`}</div>
           <div className="leftstats__date">{timestampdata}</div>
         </div>
+
         <div className="rightstats">
           <div className="rightstats__veiws">
             <img
@@ -22,7 +23,7 @@ export default function VideoStatsComp({
               src={Veiwicon}
               alt="veiws"
             />
-            <div className="rightstats__veiws_counter">{viewsdata}</div>
+            <div className="rightstats__veiws__counter">{viewsdata}</div>
           </div>
           <div className="rightstats__likes">
             <img
@@ -30,7 +31,7 @@ export default function VideoStatsComp({
               src={Likeicon}
               alt="likes"
             />
-            <div className="rightstats__likes_counter">{likesdata}</div>
+            <div className="rightstats__likes__counter">{likesdata}</div>
           </div>
         </div>
       </div>

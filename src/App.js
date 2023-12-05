@@ -20,28 +20,46 @@ import NextVideoSection from './components/nextvideo_section/NextVideoSectionCom
 export default function App() {
   const bodydata = BodyData
   const sidedata = SDData
-  // console.log(bodydata)
-
+    // ---------------------------------------------------------------------
   const initalmainbodyinfo = bodydata.filter((bodydataset)=> bodydataset.title === bodydata[0].title)
 
-  // console.log(initalmainbodyinfo)
   const[mainbodyinfo, setMainBodyInfo] = useState(initalmainbodyinfo[0])
-
-  // console.log(mainbodyinfo)
 
   function updatemainbodyinfo(inboundobject){
     const updatedmainbodyinfo = bodydata.filter((bodydataset)=> bodydataset.title === inboundobject)
-    // console.log("0000000000000000000000000000")
-    // console.log(updatedmainbodyinfo)
     setMainBodyInfo(updatedmainbodyinfo[0])
   }
 
-  // console.log(mainbodyinfo)
-  // console.log(mainbodyinfo.comments)
-  // ---------------------------------------------------------------------
   const commentsdata = mainbodyinfo.comments
-  // console.log(commentsdata)
 
+  // ---------------------------------------------------------------------
+  // setting up dynamic comment updating--------------commentpayload-------------------------------
+  const [commentpayload, setCommentPayload] = useState(commentsdata)
+  // we are going have an "interception" of the returned comment data, 
+  // where we are going do somesort of state/formatting check before that comment data is going to the final step of rendering it with .map method 
+  // -the final step before the actual rendering of the comments
+  console.log(commentpayload)
+
+  function updatingCommentPayloadduetoFromInput (takeinanobject) {
+    // gets inbound comment data, then adds a comment, formats it so setCommentRender state can use it
+    // that object("takeinanobject") is going to be added to a spreaded array that will then be the referred to the setCommentPayload
+    let newcommentpayload = [takeinanobject, ...commentpayload]
+    setCommentPayload(newcommentpayload)
+    // const updatecomments = commentpayload.map((iteration) => ( 
+    // this is does not work for some reason?    
+    const updatecomments = newcommentpayload.map((iteration) => (
+      
+      <CommentCard
+        message={iteration.comment}
+        name={iteration.name}
+        time={dateCoverstion(iteration.timestamp)}
+        likes={iteration.likes}
+        key={iteration.id}
+      />
+      ))
+    setCommentRender(updatecomments)
+  }
+  // ---------------------------------------------------------------------
   const intialcommentrender = commentsdata.map((iteration) => (
     <CommentCard
       message={iteration.comment}
@@ -51,7 +69,6 @@ export default function App() {
       key={iteration.id}
     />
   ));
-
 
   const [commentrender, setCommentRender] = useState(intialcommentrender);
 
@@ -74,7 +91,7 @@ export default function App() {
 
   // ---------------------------------------------------------------------
   return (
-    <>
+    <div  className='appwrapper'>
     <NavBarComp />
     <VideoComp 
       videodata = {mainbodyinfo.video}
@@ -94,7 +111,8 @@ export default function App() {
     />
     <CommentComp 
       mappedelements={commentrender}
-      commentdata={commentsdata}
+      commentdata={commentpayload}
+      updatecommentpayload = {updatingCommentPayloadduetoFromInput}
     />
     <NextVideoSection
       onClickInfoHandler={updatemainbodyinfo}
@@ -102,6 +120,21 @@ export default function App() {
       data1={bodydata}
       data2={sidedata}
     />
-    </>
+    </div>
   );
 };
+
+
+/*
+// spread array and add new object to make a new clones array
+let list = SDData
+console.log(list[0].comments) 
+
+let comments = list[0].comments
+
+let newdata = {name:"tony", color:"red"}
+
+let updatedarray = [...comments, newdata]
+
+console.log(updatedarray)
+*/
