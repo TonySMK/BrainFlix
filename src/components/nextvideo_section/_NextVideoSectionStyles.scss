@@ -1,0 +1,25 @@
+@use "../../styles/partials/bootstrap" as bs;
+@import "../../styles/partials/variables";
+
+.nextvideosection{
+    @include bs.padding16;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 1rem;
+
+    &__title{
+        text-transform: uppercase;
+        @include bs.font400(13px, 18px, $silver-prime)
+    }
+
+    &__list{
+        // background-color: bisque;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        gap: 1rem
+    }
+}

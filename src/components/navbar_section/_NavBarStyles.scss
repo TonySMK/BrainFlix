@@ -1,0 +1,136 @@
+@use '../../styles/partials/bootstrap' as bs;
+@import '../../styles/partials/variables';
+
+.nav{
+    background-color: $white-prime;
+    @include bs.padding16;
+    height: auto;
+    // height: 200px;
+    // this is not respecting the imported htmls from the components
+    display: flex;
+    flex-direction:column;
+    // justify-content: space-between;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+
+    @include bs.tablet{
+        @include bs.padding24;
+        // background-color: red;
+        flex-direction:row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+
+    &__first{
+        background-color: grey;
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+
+        @include bs.tablet{
+            align-items: center;
+        }
+        
+    }
+
+    &__second{
+        background-color: $white-prime;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+
+        @include bs.tablet{
+            flex-wrap: nowrap;
+            align-items: center;
+            width: 60%;
+        }
+    }
+}
+
+.mainlogo{
+    background-color: $white-prime;
+    width: 120px;
+    height: 25px;
+    position: relative;
+    margin-bottom: 1rem;
+
+    @include bs.tablet{
+        margin-bottom: 0rem;
+    }
+
+    &__img{
+        width: 100%;
+        height: 100%;
+    }
+
+    &__link{
+        // background-color: red;
+        position: absolute;
+        width: inherit;
+        height: inherit;
+        left: 0px;
+        opacity: 0;
+        // this opacity attribute allow the element to have value, but display i
+    }
+}
+
+.searchcontainer{
+    // background-color: bisque;
+    display: flex;
+    flex-wrap: wrap;
+    height: 36px;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    position: relative;
+    flex-grow: 1;
+
+    @include bs.tablet{
+        height: 40px;
+        margin: 0rem;
+    }
+
+    &__imgwarp{
+        // background-color: red;
+        height: 100%;
+        aspect-ratio: 1/1;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &__iconsearch{
+            width: 50%;
+            // position: absolute;
+            // display: block;
+            // margin: auto;
+        }
+    }
+
+    &__inputtext{
+        padding-left: 2.5rem;
+        width: 100%;
+        border-radius: 4px;
+        border: 1px solid $silver-second;
+        outline: none;  
+        @include bs.font400(10px, 20px, $black-second);
+        background-color: $white-second;
+        
+
+        @include bs.tablet{
+            @include bs.font400(12px, 20px, $black-second);
+            // background-color: grey;
+            width:200px;
+        }
+
+    
+        // border-left: black;
+        // might need to make this padding value something else more deliberate...
+    }
+}
+
+.buttonupload{
+    width: 100%;
+    background-color: rgb(200, 210, 210);
+    display: flex;
+}

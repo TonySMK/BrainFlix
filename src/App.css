@@ -1,0 +1,18 @@
+* {
+  font-family: "AvenierNext";
+}
+
+body {
+  margin: 0px;
+}
+
+@font-face {
+  font-family: "AvenierNext";
+  src: url("../../assets/fonts/AvenirNextLTPro-Regular.otf") format("opentype"), url("../../assets/fonts/AlternativeFonts/AvenirNextLTPro.ttf") format("ttf");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "AvenierNext";
+  src: url("../../assets/fonts/AvenirNextLTPro-Bold.otf") format("opentype"), url("../../assets/fonts/AlternativeFonts/AvenirNextLTProBold.ttf") format("ttf");
+  font-weight: 700;
+}/*# sourceMappingURL=App.css.map */

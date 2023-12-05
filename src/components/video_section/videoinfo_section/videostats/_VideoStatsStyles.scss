@@ -1,0 +1,50 @@
+@use "../../../../styles/partials/bootstrap" as bs;
+@import "../../../../styles/partials/variables";
+
+
+.videostatsbackground{
+    // background-color: aqua;
+    @include bs.padding16;
+}
+
+.videostats{
+    border-bottom: 1px solid $silver-prime;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    
+    padding-right: 2.5rem;
+    // padding-right for "right justification"
+}
+
+.leftstats{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+    // the "gap" attribute determines the size between for both left and right side
+    &__author{
+        @include bs.font700(13px, 18px, $black-second);
+    }
+
+    &__date{
+        @include bs.font400(13px, 18px, $silver-prime);
+    }
+}
+
+
+.rightstats{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    &__likes, &__veiws{
+        display: flex;
+        padding-left: 2rem;
+        &__counter{
+        @include bs.font400(13px, 18px, $silver-second);
+        padding-left: 0.5rem;
+        }
+    }
+}

@@ -1,0 +1,31 @@
+@use "../../../../styles/partials/bootstrap" as bs;
+@import "../../../../styles/partials/variables";
+
+.cardouterwrap{
+    display: flex;
+    border-bottom: 1px solid $silver-prime;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.cardright{
+    margin-left: 1rem;
+
+    &__top{
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+        &__name{
+            @include bs.font700(none, 18px, $black-second)
+        }
+
+        &__date{
+            @include bs.font400(none, 18px, $silver-prime)
+        }
+    }
+
+    &__mid{
+        @include bs.font400(none, 18px, $black-prime)
+        
+    }
+}

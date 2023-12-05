@@ -1,0 +1,27 @@
+@use "../../../styles/partials/bootstrap" as bs;
+@import "../../../styles/partials/variables";
+
+.commentright {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+
+  margin-left: 1rem;
+
+  &__label {
+    // margin-bottom: 1rem;
+    @include bs.font400(13px, 18px, $silver-prime)
+  }
+
+  &__textarea {
+    margin-bottom: 1rem;
+    height: 6rem;
+    outline: none;
+    border-radius: 4px;
+    border: 1px solid $silver-prime;
+    resize: none;
+
+    padding-top: 0.75rem;
+    padding-left: 0.75rem;
+  }
+}
