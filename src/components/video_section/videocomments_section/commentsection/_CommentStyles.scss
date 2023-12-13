@@ -1,0 +1,28 @@
+@use "../../../../styles/partials/bootstrap" as bs;
+@import "../../../../styles/partials/variables";
+
+.commentsectionbackground {
+  @include bs.padding16;
+}
+
+.commentform {
+  // background-color: antiquewhite;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid $silver-prime;
+
+  &__top{
+    @include bs.font700(13px, 18px, $black-prime);
+
+  }
+
+  &__bot {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+.commentleft {
+  padding-top: 1.25rem;
+}
