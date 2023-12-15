@@ -4,6 +4,7 @@ import { useState } from "react";
 import BodyData from "./data/video-details.json";
 import SDData from "./data/videos.json";
 import { timeElapsed, dateCoverstion } from "./utilityfunctions.js";
+// import "./components/video_section/videocomments_section/commentcard/_CommentCardStyles.scss";
 
 // components
 import NavBarComp from "./components/navbar_section/NavBarComp.jsx";
@@ -18,39 +19,51 @@ import NextVideoSection from "./components/nextvideo_section/NextVideoSectionCom
 export default function App() {
   const bodydata = BodyData;
   const sidedata = SDData;
-
   // ---------------------------------------------------------------------
   const initalmainbodyinfo = bodydata.filter(
     (bodydataset) => bodydataset.title === bodydata[0].title
   );
+  // this bodydata[0] is sorta hard coded...
+  console.log(initalmainbodyinfo);
 
   const [mainbodyinfo, setMainBodyInfo] = useState(initalmainbodyinfo[0]);
+  // the reason why we need to add a "0", is because the filter method is returning an array (period),
+  // and in the array, contains 1 index, that value of that sole index is the object
+  // containing all of the information needed to provide to the rest of the main page... the console.log will show an object, that is wrapped in an array "[{the object...}]"
 
-  function updatemainbodyinfo(inboundobject) {
+  function updatemainbodyinfo(inboundobjecttitle) {
+    // this function connects the two JSON files together
     const updatedmainbodyinfo = bodydata.filter(
-      (bodydataset) => bodydataset.title === inboundobject
+      (bodydataset) => bodydataset.title === inboundobjecttitle
     );
     setMainBodyInfo(updatedmainbodyinfo[0]);
   }
 
-  const commentsdata = mainbodyinfo.comments;
+  const selectedcommentsdata = mainbodyinfo.comments;
+  console.log(selectedcommentsdata);
 
   // ---------------------------------------------------------------------
   // setting up dynamic comment updating--------------commentpayload-------------------------------
-  const [commentpayload, setCommentPayload] = useState(commentsdata);
+  const [commentpayload, setCommentPayload] = useState(selectedcommentsdata);
   // we are going have an "interception" of the returned comment data,
   // where we are going do somesort of state/formatting check before that comment data is going to the final step of rendering it with .map method
   // -the final step before the actual rendering of the comments
   console.log(commentpayload);
+  //this payload represents an array of objects
 
-  function updatingCommentPayloadduetoFromInput(takeinanobject) {
+  function updatingCommentPayloadduetoFormInput(takeinanobject) {
     // gets inbound comment data, then adds a comment, formats it so setCommentRender state can use it
     // that object("takeinanobject") is going to be added to a spreaded array that will then be the referred to the setCommentPayload
     let newcommentpayload = [takeinanobject, ...commentpayload];
+    // the line above, basically is: "lets create a new array, that takes in an object (which is the new comment object)
+    // and we are going to copy the previously set comments in this array, so now this array represents and contains the original comments along with the new comment"
+    // the order in which the of item in the "newcommentpayload" matters!!!
+    console.log(newcommentpayload);
     setCommentPayload(newcommentpayload);
     // const updatecomments = commentpayload.map((iteration) => (
     // this is does not work for some reason?
     const updatecomments = newcommentpayload.map((iteration) => (
+      // value represents an oject that is a "mapped" object!
       <CommentCard
         message={iteration.comment}
         name={iteration.name}
@@ -60,9 +73,13 @@ export default function App() {
       />
     ));
     setCommentRender(updatecomments);
+    // just realize that the intial CommentRender taken in "mapped" object, therefore to maintain functionality,
+    // the seCommentRender also needs to take in a "mapped" object,
+    // a filtered object alone does not have enough information to be used in the CommentComp component, as this componet is expecting a "completely rendered out" comment object
   }
+
   // ---------------------------------------------------------------------
-  const intialcommentrender = commentsdata.map((iteration) => (
+  const intialcommentrender = selectedcommentsdata.map((iteration) => (
     <CommentCard
       message={iteration.comment}
       name={iteration.name}
@@ -80,6 +97,7 @@ export default function App() {
     );
     let updatedcommentarray = forcorpresondingdata[0].comments;
     console.log(updatedcommentarray);
+
     const updatedcommentrender = updatedcommentarray.map((iteration) => (
       <CommentCard
         message={iteration.comment}
@@ -100,31 +118,38 @@ export default function App() {
         videodata={mainbodyinfo.video}
         imagedata={mainbodyinfo.image}
       />
-      <VideoTitleComp titledata={mainbodyinfo.title} />
-      <VideoStatsComp
-        channeldata={mainbodyinfo.channel}
-        timestampdata={dateCoverstion(mainbodyinfo.timestamp)}
-        likesdata={mainbodyinfo.likes}
-        viewsdata={mainbodyinfo.views}
-      />
-      <VideoDescription descriptiondata={mainbodyinfo.description} />
-      <CommentComp
-        mappedelements={commentrender}
-        commentdata={commentpayload}
-        updatecommentpayload={updatingCommentPayloadduetoFromInput}
-      />
-      <NextVideoSection
-        onClickInfoHandler={updatemainbodyinfo}
-        onClickForCommentHandler={updatedcommentrender}
-        data1={bodydata}
-        data2={sidedata}
-      />
+      ​
+      <section className="dtwarpperbackground">
+        <section className="dtwrapper0">
+          <section className="dtwrapper1">
+            <VideoTitleComp titledata={mainbodyinfo.title} />
+            <VideoStatsComp
+              channeldata={mainbodyinfo.channel}
+              timestampdata={dateCoverstion(mainbodyinfo.timestamp)}
+              likesdata={mainbodyinfo.likes}
+              viewsdata={mainbodyinfo.views}
+            />
+            <VideoDescription descriptiondata={mainbodyinfo.description} />
+            <CommentComp
+              mappedelements={commentrender}
+              commentdata={commentpayload}
+              updatecommentpayload={updatingCommentPayloadduetoFormInput}
+            />
+          </section>
+          <NextVideoSection
+            onClickInfoHandler={updatemainbodyinfo}
+            onClickForCommentHandler={updatedcommentrender}
+            data1={bodydata}
+            data2={sidedata}
+          />
+        </section>
+      </section>
     </div>
   );
 }
 
 /*
-// spread array and add new object to make a new clones array
+// spread array and add new object to make a new clone array
 let list = SDData
 console.log(list[0].comments) 
 

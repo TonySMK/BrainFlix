@@ -1,6 +1,13 @@
 @use '../../styles/partials/bootstrap' as bs;
 @import '../../styles/partials/variables';
 
+.navbackgroundwrap{
+    @include bs.desktop{
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+}
 .nav{
     background-color: $white-prime;
     @include bs.padding16;
@@ -21,9 +28,13 @@
         align-items: center;
     }
 
+    @include bs.desktop{
+        width: 1020px;
+        @include bs.paddingdesktop;
 
+    }
     &__first{
-        background-color: grey;
+        background-color: $white-prime;
         display: flex;
         justify-content: center;
         flex-direction: row;
@@ -43,7 +54,7 @@
         @include bs.tablet{
             flex-wrap: nowrap;
             align-items: center;
-            width: 60%;
+            // width: 80%;
         }
     }
 }
@@ -120,6 +131,7 @@
         @include bs.tablet{
             @include bs.font400(12px, 20px, $black-second);
             // background-color: grey;
+            margin-right:1rem;
             width:200px;
         }
 
