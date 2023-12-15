@@ -3,6 +3,10 @@
 
 .videodesbackground{
     @include bs.padding16;
+
+    @include bs.desktop{
+        @include bs.paddingdesktop;
+    }
 }
 
 .videodes{

@@ -3,6 +3,10 @@
 
 .commentsectionbackground {
   @include bs.padding16;
+
+  @include bs.desktop{
+    @include bs.paddingdesktop;
+  }
 }
 
 .commentform {
@@ -13,7 +17,6 @@
 
   &__top{
     @include bs.font700(13px, 18px, $black-prime);
-
   }
 
   &__bot {
@@ -21,6 +24,11 @@
     padding-bottom: 1rem;
     display: flex;
     justify-content: space-between;
+
+    @include bs.desktop{
+      @include bs.padding16;
+
+    }
   }
 }
 .commentleft {

@@ -6,7 +6,7 @@ import SearchIcon from "../../assets/icons/search.svg";
 
 export default function NavBarComp() {
   return (
-    <header>
+    <header className="navbackgroundwrap">
       <nav className="nav">
         <div className="nav__first">
           <div className="mainlogo">

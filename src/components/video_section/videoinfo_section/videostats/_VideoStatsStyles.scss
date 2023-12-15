@@ -5,6 +5,10 @@
 .videostatsbackground{
     // background-color: aqua;
     @include bs.padding16;
+
+    @include bs.desktop{
+        @include bs.paddingdesktop;
+    }
 }
 
 .videostats{
@@ -15,7 +19,10 @@
     padding-bottom: 1rem;
     
     padding-right: 2.5rem;
-    // padding-right for "right justification"
+
+    @include bs.desktop{
+        padding-top: 0rem;
+    }
 }
 
 .leftstats{
@@ -30,6 +37,10 @@
 
     &__date{
         @include bs.font400(13px, 18px, $silver-prime);
+    }
+
+    @include bs.desktop{
+        flex-direction: row;
     }
 }
 
@@ -46,5 +57,9 @@
         @include bs.font400(13px, 18px, $silver-second);
         padding-left: 0.5rem;
         }
+    }
+
+    @include bs.desktop{
+        flex-direction: row;
     }
 }

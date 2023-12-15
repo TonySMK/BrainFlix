@@ -1,6 +1,15 @@
 @use "../../styles/partials/bootstrap" as bs;
 @import "../../styles/partials/variables";
 
+.videobackgroundwrap{
+  @include bs.desktop{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background-color: black;
+}
+
+}
 .videowrap {
   width: 100%;
   height: 56.25vw;
@@ -11,4 +20,8 @@
     aspect-ratio: 1/0.5;
     //fix
   }
+
+  @include bs.desktop{
+    width: 75%;
+}
 }

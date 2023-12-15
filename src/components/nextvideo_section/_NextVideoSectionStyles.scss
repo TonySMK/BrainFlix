@@ -2,6 +2,7 @@
 @import "../../styles/partials/variables";
 
 .nextvideosection{
+    background-color: $white-prime;
     @include bs.padding16;
     padding-top: 1rem;
     padding-bottom: 1rem;

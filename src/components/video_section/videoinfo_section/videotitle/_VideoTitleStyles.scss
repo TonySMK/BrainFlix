@@ -4,6 +4,10 @@
 .videotitlebackground{
     // background-color:aquamarine;
     @include bs.padding16;
+
+    @include bs.desktop{
+        @include bs.paddingdesktop;
+    }
 }
 .videotitle{
     padding-top: 1rem;
@@ -13,6 +17,11 @@
     
     @include bs.tablet{
         @include bs.font700(33px, 44px, $black-prime);
+    }
+
+    @include bs.desktop{
+        border-bottom:0px;
+        padding-bottom: 0rem;
     }
 
     padding-right: 2.5rem;
