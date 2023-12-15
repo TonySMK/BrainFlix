@@ -15,12 +15,13 @@
     @include bs.desktop{
         width: 1020px;
         display: flex;
-        // justify-content: space-between;
+        justify-content: space-between;
     }
 }
 
 .dtwrapper1{
     @include bs.desktop{
-        width: 800px;
+        width: 250%;
+        // Fix this value does not make sense, it works but does not make sense
     }
 }

@@ -13,7 +13,6 @@
 
     @include bs.desktop{
         @include bs.padding24;
-        width: 300px;
         justify-content: flex-start;
         border-left: 1px solid $silver-second;
     }

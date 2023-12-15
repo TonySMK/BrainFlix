@@ -1,12 +1,21 @@
 import "./_NextVideoCardStyles.scss";
+import { useParams } from "react-router-dom";
 
 export default function NextVideoCard({
+  data1,
   data2,
   onClickNxtShuffle,
   onClickInfoHandler,
   onClickForCommentHandler,
 }) {
-  //   console.log(data2.title);
+  const { pageid } = useParams();
+
+  console.log(pageid)
+  
+  // let sam = data1.find((eachone) => eachone.id === pageid)
+  // console.log(sam)
+  // console.log(sam.title)
+  // idk why "sam.title" does not work, but "sam" return an object
 
   function functionhandler(titlereference1) {
     onClickNxtShuffle(titlereference1);

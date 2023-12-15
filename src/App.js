@@ -4,6 +4,7 @@ import { useState } from "react";
 import BodyData from "./data/video-details.json";
 import SDData from "./data/videos.json";
 import { timeElapsed, dateCoverstion } from "./utilityfunctions.js";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 // import "./components/video_section/videocomments_section/commentcard/_CommentCardStyles.scss";
 
 // components
@@ -136,12 +137,32 @@ export default function App() {
               updatecommentpayload={updatingCommentPayloadduetoFormInput}
             />
           </section>
-          <NextVideoSection
-            onClickInfoHandler={updatemainbodyinfo}
-            onClickForCommentHandler={updatedcommentrender}
-            data1={bodydata}
-            data2={sidedata}
-          />
+          <BrowserRouter>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <NextVideoSection
+                    onClickInfoHandler={updatemainbodyinfo}
+                    onClickForCommentHandler={updatedcommentrender}
+                    data1={bodydata}
+                    data2={sidedata}
+                  />
+                }
+              />
+              <Route
+                path="/:pageid"
+                element={
+                  <NextVideoSection
+                    onClickInfoHandler={updatemainbodyinfo}
+                    onClickForCommentHandler={updatedcommentrender}
+                    data1={bodydata}
+                    data2={sidedata}
+                  />
+                }
+              />
+            </Routes>
+          </BrowserRouter>
         </section>
       </section>
     </div>
