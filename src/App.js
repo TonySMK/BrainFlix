@@ -136,7 +136,6 @@ export default function App() {
               updatecommentpayload={updatingCommentPayloadduetoFormInput}
             />
           </section>
-          ​
           <NextVideoSection
             onClickInfoHandler={updatemainbodyinfo}
             onClickForCommentHandler={updatedcommentrender}

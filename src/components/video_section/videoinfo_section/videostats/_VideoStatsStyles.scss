@@ -12,16 +12,17 @@
 }
 
 .videostats{
-    border-bottom: 1px solid $silver-prime;
+    border-bottom: 1px solid $silver-second;
     display: flex;
     justify-content: space-between;
     padding-top: 1rem;
     padding-bottom: 1rem;
-    
     padding-right: 2.5rem;
 
     @include bs.desktop{
         padding-top: 0rem;
+        padding-bottom: 0.5rem;
+        padding-right: 1.5rem;
     }
 }
 

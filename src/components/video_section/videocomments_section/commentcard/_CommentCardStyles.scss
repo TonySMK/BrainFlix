@@ -3,9 +3,13 @@
 
 .cardouterwrap{
     display: flex;
-    border-bottom: 1px solid $silver-prime;
+    border-bottom: 1px solid $silver-second;
     padding-top: 1rem;
     padding-bottom: 1rem;
+
+    @include bs.desktop{
+        @include bs.padding24
+    }
 }
 
 .cardright{

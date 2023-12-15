@@ -1,21 +1,26 @@
 @use "./styles/partials/bootstrap" as bs;
 @import "./styles/partials/variables";
-​
+
 .dtwarpperbackground{
     @include bs.desktop{
         width: 100%;
         display: flex;
+        background-color: $white-prime;
         justify-content: center;
-        background-color: grey;
-        
     }
 }
-​
+
 .dtwrapper0{
+    background-color: $white-prime;
     @include bs.desktop{
         width: 1020px;
-        background-color: $white-prime;
         display: flex;
-        justify-content: space-between;
+        // justify-content: space-between;
+    }
+}
+
+.dtwrapper1{
+    @include bs.desktop{
+        width: 800px;
     }
 }
