@@ -22,7 +22,6 @@
 
     @include bs.tablet{
         @include bs.padding24;
-        // background-color: red;
         flex-direction:row;
         justify-content: space-between;
         align-items: center;
@@ -54,7 +53,7 @@
         @include bs.tablet{
             flex-wrap: nowrap;
             align-items: center;
-            // width: 80%;
+            width: 50%;
         }
     }
 }
@@ -99,6 +98,7 @@
     @include bs.tablet{
         height: 40px;
         margin: 0rem;
+        width: 200px;
     }
 
     &__imgwarp{
