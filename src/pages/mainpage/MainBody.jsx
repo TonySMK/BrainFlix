@@ -16,24 +16,24 @@ import CommentCard from "../../components/video_section/videocomments_section/co
 
 export default function PageBody({mainbodyinfo, Maindata, Sidedata}) {
   const { pageid } = useParams();
-  console.log(pageid);
-  console.log(mainbodyinfo)
+  // console.log(pageid);
+  // console.log(mainbodyinfo)
 
 
     const intialfounddata = Maindata.find((object) => object.id === pageid);
 
-    console.log(intialfounddata);
+    // console.log(intialfounddata);
     if(pageid !==undefined){
-      // i now realized that undefined not a string but a primitive data type, for the longest time, 
-      // i kept saying "if(pageid !=="undefined"), when it should be if(pageid !==undefined) with no quotes
+      // i now realized that undefined is not a string but a primitive data type, for the longest time, 
+      // i kept saying "if(pageid !=="undefined"), when it should be, if(pageid !==undefined) with no quotes
       // as once again undefined is a primative variable.... the console.log was not returning a string...
-      console.log("111111")
+      // console.log("111111")
       mainbodyinfo = intialfounddata
       // this line right here is supercritical for allowing 1 element to consume different object 
       // after the first consumption,
       // as the second consumption only occurs when there is a the useParams is return NOT "undefined"
     } else if(pageid ===undefined){
-      console.log("222222")
+      // console.log("222222")
     }
 
 
