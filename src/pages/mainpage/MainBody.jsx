@@ -14,14 +14,33 @@ import CommentCard from "../../components/video_section/videocomments_section/co
 
 
 
-export default function PageBody({mainbodyinfo, Maindata, Sidedata, upatemainbody, somedata}) {
+export default function PageBody({mainbodyinfo, Maindata, Sidedata}) {
+  const { pageid } = useParams();
+  console.log(pageid);
+  console.log(mainbodyinfo)
+
+
+    const intialfounddata = Maindata.find((object) => object.id === pageid);
+
+    console.log(intialfounddata);
+    if(pageid !==undefined){
+      // i now realized that undefined not a string but a primitive data type, for the longest time, 
+      // i kept saying "if(pageid !=="undefined"), when it should be if(pageid !==undefined) with no quotes
+      // as once again undefined is a primative variable.... the console.log was not returning a string...
+      console.log("111111")
+      mainbodyinfo = intialfounddata
+      // this line right here is supercritical for allowing 1 element to consume different object 
+      // after the first consumption,
+      // as the second consumption only occurs when there is a the useParams is return NOT "undefined"
+    } else if(pageid ===undefined){
+      console.log("222222")
+    }
+
+
 
   const selectedcommentsdata = mainbodyinfo.comments;
-  // console.log(selectedcommentsdata);
 
   const [commentpayload, setCommentPayload] = useState(selectedcommentsdata);
-  // console.log(commentpayload);
-
 
   const intialcommentrender = selectedcommentsdata.map((iteration) => (
     <CommentCard
@@ -34,10 +53,24 @@ export default function PageBody({mainbodyinfo, Maindata, Sidedata, upatemainbod
   ));
 
   const [commentrender, setCommentRender] = useState(intialcommentrender);
-  //we do need this when it comes to using the updatin the comment payload
+
+  useEffect(()=>{
+    console.log("mounting")
+    const anothercommentrender = selectedcommentsdata.map((iteration) => (
+      <CommentCard
+        message={iteration.comment}
+        name={iteration.name}
+        time={dateCoverstion(iteration.timestamp)}
+        likes={iteration.likes}
+        key={iteration.id}
+      />
+    ));
+  setCommentRender(anothercommentrender)
+},[pageid])
+
 
   return(
-    <main>
+    <main>placeholder
             <VideoComp
           videodata={mainbodyinfo.video}
           imagedata={mainbodyinfo.image}

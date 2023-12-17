@@ -11,14 +11,13 @@ export default function NavBarComp() {
       <nav className="nav">
         <div className="nav__first">
           <div className="mainlogo">
-            <img
-              className="mainlogo__img"
-              src={BrainflixLogo}
-              alt="Brainflix Logo"
-            />
-            <a className="mainlogo__link" href="n/a">
-              BrainFlix Logo
-            </a>
+            <Link to={"/"}>
+              <img
+                className="mainlogo__img"
+                src={BrainflixLogo}
+                alt="Brainflix Logo"
+              />
+            </Link>
           </div>
         </div>
 

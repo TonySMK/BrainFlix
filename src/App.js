@@ -7,12 +7,22 @@ import SideData from "./data/videos.json";
 import MainIDPage from "./pages/MainIDpage/MainIDBody.jsx";
 // components
 import NavBarComp from "./components/navbar_section/NavBarComp.jsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function App() {
-  const { pageid } = useParams();
+  let data1 = MainData;
 
-  const initalmainbodyinfo = MainData[0];
+  const initalmainbodyinfo = data1[0];
+  // console.log(initalmainbodyinfo);
+
+  let sam = initalmainbodyinfo;
+  const [some, setSome] = useState(initalmainbodyinfo);
+
+  // useEffect(() => {
+  //   setObjectPass(intialfounddata);
+  // }, [pageid]);
+
+  // console.log(objectpass);
 
   return (
     <div className="appwrapper">
@@ -24,7 +34,7 @@ export default function App() {
             element={
               <MainPage
                 key={"manny"}
-                mainbodyinfo={initalmainbodyinfo}
+                mainbodyinfo={some}
                 Maindata={MainData}
                 Sidedata={SideData}
               />
@@ -34,8 +44,9 @@ export default function App() {
           <Route
             path="/:pageid"
             element={
-              <MainIDPage
+              <MainPage
                 key={"anny"}
+                mainbodyinfo={some}
                 Maindata={MainData}
                 Sidedata={SideData}
               />

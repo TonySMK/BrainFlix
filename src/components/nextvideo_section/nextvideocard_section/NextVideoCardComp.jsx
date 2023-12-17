@@ -8,6 +8,7 @@ export default function NextVideoCard({
   onClickInfoHandler,
   onClickForCommentHandler,
 }) {
+
   // console.log(data2.title)
   const { pageid } = useParams();
     // console.log(pageid +"0000000000000000")
@@ -25,6 +26,13 @@ export default function NextVideoCard({
   // };
   
   finaltitle = data2.title
+
+  // before we were leverageing the format of the render of the NextVdieoSection array.title, 
+  // to dictact what information should be used to .find then .filer then .map for 
+  // the information that would be used in the main body...
+  // now we have decoupled the the object for rendering the NextVdieoSection and what will be shown on in the main body
+
+  // now we can work rework those existing functions that help change the final output array to render the NextVdieoSection
 
     function functionhandler(titlereference1) {
       onClickNxtShuffle(titlereference1);
