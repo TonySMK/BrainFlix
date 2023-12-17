@@ -1,7 +1,7 @@
 import "./_MainIDBody.scss"
 import { useState, useEffect} from "react";
 import {dateCoverstion} from "../../utilityfunctions"
-import { useParams } from "react-router-dom";
+import { useFetcher, useParams } from "react-router-dom";
 
 //Components
 import VideoComp from "../../components/video_section/VideoComp";
@@ -22,6 +22,45 @@ export default function PageBody({Maindata, Sidedata}) {
 
   let intialfounddata = Maindata.find((object) => object.id === pageid);
   console.log(intialfounddata)
+
+  const selectedcommentsdata = intialfounddata.comments;
+  console.log(selectedcommentsdata);
+
+  const [commentpayload, setCommentPayload] = useState(selectedcommentsdata);
+  console.log(commentpayload);
+
+
+  const intialcommentrender = selectedcommentsdata.map((iteration) => (
+    <CommentCard
+      message={iteration.comment}
+      name={iteration.name}
+      time={dateCoverstion(iteration.timestamp)}
+      likes={iteration.likes}
+      key={iteration.id}
+    />
+  ));
+
+  const [commentrender, setCommentRender] = useState(intialcommentrender);
+
+  useEffect(()=>{
+    console.log("mounting")
+    const anothercommentrender = selectedcommentsdata.map((iteration) => (
+      <CommentCard
+        message={iteration.comment}
+        name={iteration.name}
+        time={dateCoverstion(iteration.timestamp)}
+        likes={iteration.likes}
+        key={iteration.id}
+      />
+    ));
+
+  setCommentRender(anothercommentrender)
+
+
+},[pageid])
+
+  //we need to figure out a way to update the comment payload
+
 
 
   return(
@@ -45,7 +84,9 @@ export default function PageBody({Maindata, Sidedata}) {
               descriptiondata={intialfounddata.description}
             />
             <CommentComp
-              commentdata = {intialfounddata.comments}
+              mappedelements={commentrender}
+              commentdata={commentpayload}
+              // updatecommentpayload={updatingCommentPayloadduetoFormInput}
             />
           </section>
 
@@ -58,36 +99,3 @@ export default function PageBody({Maindata, Sidedata}) {
     </main>
   );
 }
-
-/*
-      <VideoComp
-          videodata={mainbodyinfo.video}
-          imagedata={mainbodyinfo.image}
-      />
-      <section className="dtwarpperbackground">
-        <section className="dtwrapper0">
-          <section className="dtwrapper1">
-            <VideoTitleComp titledata={mainbodyinfo.title} />
-            <VideoStatsComp
-              channeldata={mainbodyinfo.channel}
-              timestampdata={dateCoverstion(mainbodyinfo.timestamp)}
-              likesdata={mainbodyinfo.likes}
-              viewsdata={mainbodyinfo.views}
-            />
-            <VideoDescription
-              descriptiondata={mainbodyinfo.description}
-            />
-            <CommentComp
-            />
-          </section>
-          
-
-          <NextVideoSection
-            // onClickInfoHandler={updatemainbodyinfo}
-            data1={bodydata}
-            data2={sidedata}
-          />
-        </section>
-      </section>
-      
-*/

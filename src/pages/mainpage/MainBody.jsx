@@ -16,6 +16,25 @@ import CommentCard from "../../components/video_section/videocomments_section/co
 
 export default function PageBody({mainbodyinfo, Maindata, Sidedata, upatemainbody, somedata}) {
 
+  const selectedcommentsdata = mainbodyinfo.comments;
+  // console.log(selectedcommentsdata);
+
+  const [commentpayload, setCommentPayload] = useState(selectedcommentsdata);
+  // console.log(commentpayload);
+
+
+  const intialcommentrender = selectedcommentsdata.map((iteration) => (
+    <CommentCard
+      message={iteration.comment}
+      name={iteration.name}
+      time={dateCoverstion(iteration.timestamp)}
+      likes={iteration.likes}
+      key={iteration.id}
+    />
+  ));
+
+  const [commentrender, setCommentRender] = useState(intialcommentrender);
+  //we do need this when it comes to using the updatin the comment payload
 
   return(
     <main>
@@ -38,7 +57,9 @@ export default function PageBody({mainbodyinfo, Maindata, Sidedata, upatemainbod
               descriptiondata={mainbodyinfo.description}
             />
             <CommentComp
-              commentdata = {mainbodyinfo.comments}
+              mappedelements={commentrender}
+              commentdata={commentpayload}
+              // updatecommentpayload={updatingCommentPayloadduetoFormInput}
             />
           </section>
 
@@ -51,36 +72,3 @@ export default function PageBody({mainbodyinfo, Maindata, Sidedata, upatemainbod
     </main>
   );
 }
-
-/*
-      <VideoComp
-          videodata={mainbodyinfo.video}
-          imagedata={mainbodyinfo.image}
-      />
-      <section className="dtwarpperbackground">
-        <section className="dtwrapper0">
-          <section className="dtwrapper1">
-            <VideoTitleComp titledata={mainbodyinfo.title} />
-            <VideoStatsComp
-              channeldata={mainbodyinfo.channel}
-              timestampdata={dateCoverstion(mainbodyinfo.timestamp)}
-              likesdata={mainbodyinfo.likes}
-              viewsdata={mainbodyinfo.views}
-            />
-            <VideoDescription
-              descriptiondata={mainbodyinfo.description}
-            />
-            <CommentComp
-            />
-          </section>
-          
-
-          <NextVideoSection
-            // onClickInfoHandler={updatemainbodyinfo}
-            data1={bodydata}
-            data2={sidedata}
-          />
-        </section>
-      </section>
-      
-*/
