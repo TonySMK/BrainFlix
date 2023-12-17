@@ -15,6 +15,8 @@ import CommentCard from "../../components/video_section/videocomments_section/co
 
 
 export default function PageBody({mainbodyinfo, Maindata, Sidedata}) {
+  // at this point we have shifted from the "sidebar rendered array object state" centered application 
+  // to the "pageid" centered application 
   const { pageid } = useParams();
   // console.log(pageid);
   // console.log(mainbodyinfo)
@@ -67,7 +69,34 @@ export default function PageBody({mainbodyinfo, Maindata, Sidedata}) {
     ));
   setCommentRender(anothercommentrender)
 },[pageid])
-
+//--------------------------------------------------------------------------------------
+function updatingCommentPayloadduetoFormInput(takeinanobject) {
+  // gets inbound comment data, then adds a comment, formats it so setCommentRender state can use it
+  // that object("takeinanobject") is going to be added to a spreaded array that will then be the referred to the setCommentPayload
+  let newcommentpayload = [takeinanobject, ...commentpayload];
+  // the line above, basically is: "lets create a new array, that takes in an object (which is the new comment object)
+  // and we are going to copy the previously set comments in this array, so now this array represents and contains the original comments along with the new comment"
+  // the order in which the of item in the "newcommentpayload" matters!!!
+  console.log(newcommentpayload);
+  setCommentPayload(newcommentpayload);
+  // const updatecomments = commentpayload.map((iteration) => (
+  // this is does not work for some reason?
+  const updatecomments = newcommentpayload.map((iteration) => (
+    // value represents an oject that is a "mapped" object!
+    <CommentCard
+      message={iteration.comment}
+      name={iteration.name}
+      time={dateCoverstion(iteration.timestamp)}
+      likes={iteration.likes}
+      key={iteration.id}
+    />
+  ));
+  setCommentRender(updatecomments);
+  // just realize that the intial CommentRender taken in "mapped" object, therefore to maintain functionality,
+  // the seCommentRender also needs to take in a "mapped" object,
+  // a filtered object alone does not have enough information to be used in the CommentComp component, as this componet is expecting a "completely rendered out" comment object
+}
+//--------------------------------------------------------------------------------------
 
   return(
     <main>placeholder
@@ -92,7 +121,7 @@ export default function PageBody({mainbodyinfo, Maindata, Sidedata}) {
             <CommentComp
               mappedelements={commentrender}
               commentdata={commentpayload}
-              // updatecommentpayload={updatingCommentPayloadduetoFormInput}
+              updatecommentpayload={updatingCommentPayloadduetoFormInput}
             />
           </section>
 

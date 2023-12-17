@@ -20,7 +20,7 @@ export default function CommentSection({ mappedelements, commentdata, updatecomm
               <AvatarComp location="formicon" icon="true" />
             </div>
             <FormComp 
-            // onClickDataHandler = {updatecommentpayload}
+            onClickDataHandler = {updatecommentpayload}
             />
           </div>
         </div>
