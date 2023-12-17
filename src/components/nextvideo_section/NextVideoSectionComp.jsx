@@ -15,7 +15,8 @@ export default function NextVideoSection({
   const initalrender = data2
     .filter((data2set) => data2set.title !== data2[0].title)
     .map((object) => (
-      <Link key={object.id} to={`/${object.title}`}>
+      <Link key={object.id} to={`/${object.id}`}>
+        {/* this where we attach the object specific ID to the url */}
         <NextVideoCard
           data1 ={data1}
           onClickInfoHandler={onClickInfoHandler}
@@ -33,6 +34,7 @@ export default function NextVideoSection({
       .filter((data2set) => data2set.title !== titleofclickeddiv)
       .map((object) => (
         <Link key={object.id} to={`/${object.id}`}>
+          {/* this where we attach the object specific ID to the url */}
           <NextVideoCard
             data1 ={data1}
             onClickInfoHandler={onClickInfoHandler}

@@ -3,6 +3,7 @@ import ButtonComp from "../utility_components/button_component/ButtonComp";
 import AvatarComp from "../utility_components/avatar_component/AvatarComp";
 import BrainflixLogo from "../../assets/logo/BrainFlix-logo.svg";
 import SearchIcon from "../../assets/icons/search.svg";
+import { Link } from "react-router-dom";
 
 export default function NavBarComp() {
   return (
@@ -40,7 +41,9 @@ export default function NavBarComp() {
             />
           </div>
           <AvatarComp location="nav" icon="true" />
-          <ButtonComp name="upload"/>
+          <Link to={"/upload"}>
+          <ButtonComp name="upload"/>   
+          </Link>
         </div>
       </nav>
     </header>

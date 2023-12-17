@@ -1,5 +1,5 @@
-@use "../styles/partials/bootstrap" as bs;
-@import "../styles/partials/variables";
+@use "../../styles/partials/bootstrap" as bs;
+@import "../../styles/partials/variables";
 
 .dtwarpperbackground{
     @include bs.desktop{

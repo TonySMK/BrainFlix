@@ -14,7 +14,7 @@ export default function CommentSection({ mappedelements, commentdata, updatecomm
     <div className="commentsectionbackground">
       <div className="commentsection">
         <div className="commentform">
-          <div className="commentform__top">{`${commentdata.length} Comments`}</div>
+          {/* <div className="commentform__top">{`${commentdata.length} Comments`}</div> */}
           <div className="commentform__bot">
             <div className="commentleft">
               <AvatarComp location="formicon" icon="true" />

@@ -39,6 +39,10 @@
     flex-grow: 1;
     text-align: center;
   }
+  
+  @include bs.desktop{
+
+  }
 }
 
 .buttoncomment {

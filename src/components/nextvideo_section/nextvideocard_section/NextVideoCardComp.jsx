@@ -8,27 +8,33 @@ export default function NextVideoCard({
   onClickInfoHandler,
   onClickForCommentHandler,
 }) {
+  // console.log(data2.title)
   const { pageid } = useParams();
-
-  console.log(pageid)
-  
-  // let sam = data1.find((eachone) => eachone.id === pageid)
+    // console.log(pageid +"0000000000000000")
+  let sam = data1.find((eachone) => eachone.id === pageid)
   // console.log(sam)
+
   // console.log(sam.title)
   // idk why "sam.title" does not work, but "sam" return an object
 
-  function functionhandler(titlereference1) {
-    onClickNxtShuffle(titlereference1);
-    onClickInfoHandler(titlereference1);
-    onClickForCommentHandler(titlereference1);
-  }
+  let finaltitle
+  // if(pageid==="undefined"){
+  //   finaltitle = data2.title
+  // }else {
+  //   finaltitle = sam.title
+  // };
+  
+  finaltitle = data2.title
+
+    function functionhandler(titlereference1) {
+      onClickNxtShuffle(titlereference1);
+      onClickForCommentHandler(titlereference1);
+      onClickInfoHandler(titlereference1);
+    }
 
   return (
     <section
       className="nxtvideocard"
-      onClick={() => {
-        functionhandler(data2.title);
-      }}
     >
       <div className="nxtvideocard__thumbnailcontainer">
         <img className="thumbnail_image" src={data2.image} alt="somealt" />
@@ -40,3 +46,11 @@ export default function NextVideoCard({
     </section>
   );
 }
+
+/*
+onClick={() => {
+  functionhandler(finaltitle);
+}}
+
+
+*/
