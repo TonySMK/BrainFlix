@@ -4,7 +4,6 @@ import MainPage from "./pages/mainpage/MainBody.jsx";
 import UploadPage from "./pages/uploadpage/Upload.jsx";
 // import MainData from "./data/video-details.json";
 // import SideData from "./data/videos.json";
-import MainIDPage from "./pages/MainIDpage/MainIDBody.jsx";
 // components
 import NavBarComp from "./components/navbar_section/NavBarComp.jsx";
 import { useEffect, useState } from "react";

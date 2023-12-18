@@ -23,40 +23,38 @@ export default function PageBody({
   const { pageid } = useParams();
   const [compstate, setCompState] = useState(true);
   const [newdata, setNewData] = useState(null);
-  const [codestate, setCodeState] = useState(true)
 
   if (pageid !== undefined) {
-    console.log("111111");
+    // console.log("111111");
     mainbodyinfo = newdata;
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     if (pageid === undefined) {
-      console.log("222222");
-      setCompState(false)
-      setCodeState(false)
+      // console.log("222222");
+      setCompState(false);
       // idk why but this putting this "setCompState(false)" or "setCompState(true)" in the outer-level causes loop!!! wtf??"
     }
-  },[])
+  }, []);
 
   useEffect(() => {
     if (pageid !== undefined) {
-      axios.get(domain + vidat + `/${pageid}` + apk).then((res) => {
-        console.log(res.data)
+      axios
+      .get(domain + vidat + `/${pageid}` + apk)
+      .then((res) => {
+        // console.log(res.data)
 
-        setNewData(res.data)
-        setCompState(false)
-        setCodeState(false)
-      });
+        setNewData(res.data);
+        setCompState(false);
+      })
+      .catch(console.log("promise broken"));
     }
   }, [pageid]);
 
-  // ---the issue is that there is code in this function that is running, 
+  // ---the issue is that there is code in this function that is running,
   // while their references have have not loaded in yet
-  // basicallly, we solved it by moving all those function 1-level down, so that it does not get falsely tripped over by the axios call, 
-  // in otherwords, anywhere where there is an axios call, we basically can not have outside functions that ancestrally have references that come from the axios call; 
-
-
+  // basicallly, we solved it by moving all those function 1-level down, so that it does not get falsely tripped over by the axios call,
+  // in otherwords, anywhere where there is an axios call, we basically can not have outside functions that ancestrally have references that come from the axios call;
 
   //--------------------------------------------------------------------------------------
 
@@ -83,7 +81,10 @@ export default function PageBody({
                 />
                 <VideoDescription descriptiondata={mainbodyinfo.description} />
                 <CommentComp
-                  selectedcommentsdata = {mainbodyinfo.comments}
+                  selectedcommentsdata={mainbodyinfo.comments}
+                  apk={apk}
+                  domain={domain}
+                  vidat={vidat}
                 />
               </section>
 

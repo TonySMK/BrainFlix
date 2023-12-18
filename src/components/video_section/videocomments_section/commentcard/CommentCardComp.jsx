@@ -1,8 +1,9 @@
 import "./_CommentCardStyles.scss";
 import AvatarComp from "../../../utility_components/avatar_component/AvatarComp.jsx";
+import { useParams } from "react-router-dom";
 
-export default function CommentCard({ message, name, time, likes }) {
-  
+export default function CommentCard({ message, name, time, likes, }) {
+  const { pageid } = useParams();
   return (
     <>
       <div className="cardouterwrap">
