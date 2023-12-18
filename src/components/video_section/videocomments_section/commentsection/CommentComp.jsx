@@ -18,16 +18,12 @@ export default function CommentSection({
   const [codestate, setCodeState] = useState(true);
   const [newcomments, setNewComments] = useState(null);
 
-  console.log(pageid);
-  console.log(selectedcommentsdata);
-
   if (pageid !== undefined) {
     selectedcommentsdata = newcomments;
   }
 
   function fetchcomments(){
     axios.get(domain + vidat + `/${pageid}` + apk).then((result) => {
-      console.log(result.data.comments);
       let commentdata = result.data.comments;
       setNewComments(reorder(commentdata));
       setCodeState(false);
@@ -36,14 +32,12 @@ export default function CommentSection({
 
   useEffect(() => {
     if (pageid !== undefined) {
-      console.log("hahaha");
       fetchcomments()
     }
   }, [pageid]);
 
   useEffect(() => {
     if (pageid === undefined) {
-      // console.log("222222");
       setCodeState(false);
     }
   }, []);
@@ -56,15 +50,11 @@ export default function CommentSection({
           name: `${name}`,
           comment: `${comment}`
       }).then(result => {
-          console.log(result)
-          console.log("the post is successful")
           fetchcomments()
       })
       .catch((error) => {
         console.log(error);
       });
-
-    console.log("sdfs");
   }
   return (
     <>
@@ -75,7 +65,7 @@ export default function CommentSection({
           <div className="commentsectionbackground">
             <div className="commentsection">
               <div className="commentform">
-                {/* <div className="commentform__top">{`${commentpayload.length} Comments`}</div> */}
+                <div className="commentform__top">{`${selectedcommentsdata.length} Comments`}</div>
                 <div className="commentform__bot">
                   <div className="commentleft">
                     <AvatarComp location="formicon" icon="true" />

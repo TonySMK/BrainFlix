@@ -11,7 +11,6 @@ import VideoStatsComp from "../../components/video_section/videoinfo_section/vid
 import VideoDescription from "../../components/video_section/videoinfo_section/videodescription_section/VideoDesComp";
 import CommentComp from "../../components/video_section/videocomments_section/commentsection/CommentComp";
 import NextVideoSection from "../../components/nextvideo_section/NextVideoSectionComp";
-import CommentCard from "../../components/video_section/videocomments_section/commentcard/CommentCardComp";
 
 export default function PageBody({
   mainbodyinfo,
@@ -25,15 +24,12 @@ export default function PageBody({
   const [newdata, setNewData] = useState(null);
 
   if (pageid !== undefined) {
-    // console.log("111111");
     mainbodyinfo = newdata;
   }
 
   useEffect(() => {
     if (pageid === undefined) {
-      // console.log("222222");
       setCompState(false);
-      // idk why but this putting this "setCompState(false)" or "setCompState(true)" in the outer-level causes loop!!! wtf??"
     }
   }, []);
 
@@ -42,21 +38,12 @@ export default function PageBody({
       axios
       .get(domain + vidat + `/${pageid}` + apk)
       .then((res) => {
-        // console.log(res.data)
-
         setNewData(res.data);
         setCompState(false);
       })
       .catch(console.log("promise broken"));
     }
   }, [pageid]);
-
-  // ---the issue is that there is code in this function that is running,
-  // while their references have have not loaded in yet
-  // basicallly, we solved it by moving all those function 1-level down, so that it does not get falsely tripped over by the axios call,
-  // in otherwords, anywhere where there is an axios call, we basically can not have outside functions that ancestrally have references that come from the axios call;
-
-  //--------------------------------------------------------------------------------------
 
   return (
     <>

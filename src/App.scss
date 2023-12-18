@@ -1,27 +1,2 @@
-// @use "./styles/partials/bootstrap" as bs;
-// @import "./styles/partials/variables";
-
-// .dtwarpperbackground{
-//     @include bs.desktop{
-//         width: 100%;
-//         display: flex;
-//         background-color: $white-prime;
-//         justify-content: center;
-//     }
-// }
-
-// .dtwrapper0{
-//     background-color: $white-prime;
-//     @include bs.desktop{
-//         width: 1020px;
-//         display: flex;
-//         justify-content: space-between;
-//     }
-// }
-
-// .dtwrapper1{
-//     @include bs.desktop{
-//         width: 250%;
-//         // Fix this value does not make sense, it works but does not make sense
-//     }
-// }
+@use "./styles/partials/bootstrap" as bs;
+@import "./styles/partials/variables";
