@@ -1,7 +1,7 @@
 import "./_NextVideoCardStyles.scss";
 import { useParams } from "react-router-dom";
 
-export default function NextVideoCard({ data1, data2, onClickNxtShuffle }) {
+export default function NextVideoCard({ data2, onClickNxtShuffle }) {
   // console.log(data2)
 
   // before we were leverageing the format of the render of the NextVdieoSection array.title,

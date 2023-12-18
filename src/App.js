@@ -2,32 +2,68 @@ import "./App.scss";
 import { Route, Routes, useParams } from "react-router-dom";
 import MainPage from "./pages/mainpage/MainBody.jsx";
 import UploadPage from "./pages/uploadpage/Upload.jsx";
-import MainData from "./data/video-details.json";
-import SideData from "./data/videos.json";
+// import MainData from "./data/video-details.json";
+// import SideData from "./data/videos.json";
 import MainIDPage from "./pages/MainIDpage/MainIDBody.jsx";
 // components
 import NavBarComp from "./components/navbar_section/NavBarComp.jsx";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function App() {
-  let data1 = MainData;
+  let url = "https://project-2-api.herokuapp.com/videos?api_key=b33";
+  let domain = "https://project-2-api.herokuapp.com";
+  let vidat = "/videos";
+  let apk = "?api_key=b33";
 
-  const initalmainbodyinfo = data1[0];
+  // console.log(domain + videoendpoint + apikey);
+  // let data1 = MainData;
+
+  // const initalmainbodyinfo = data1[0];
   // console.log(initalmainbodyinfo);
 
-  let sam = initalmainbodyinfo;
-  const [appdata, setAppdata] = useState(initalmainbodyinfo);
-
+  // let sam = initalmainbodyinfo;
   // useEffect(() => {
   //   setObjectPass(intialfounddata);
   // }, [pageid]);
 
   // console.log(objectpass);
+  const [appstate, setAppState] = useState(true);
+  const [appdata, setAppdata] = useState(null);
+  const [maindata, setMainData] = useState(null);
+  const [sidedata, setSideData] = useState(null);
+
+  useEffect(() => {
+    axios
+      .get(domain + vidat + apk)
+      .then((res) => {
+        let sidedata = res.data;
+        // console.log(sidedata);
+        setSideData(sidedata);
+        let sidedata0 = sidedata[0].id;
+        // console.log(sidedata0);
+        return sidedata0;
+      })
+      .then((sidedata0) => {
+        // console.log(sidedata0);
+        axios.get(`${domain}${vidat}/${sidedata0}${apk}`).then((res) => {
+          // console.log(res.data);
+          let intialappdata = res.data;
+          setAppdata(intialappdata);
+          setAppState(false);
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   return (
     <div className="appwrapper">
       <NavBarComp />
-      <main>
+      {appstate ? (
+        <section>Loading Data...</section>
+      ) : (
         <Routes>
           <Route
             index
@@ -35,27 +71,29 @@ export default function App() {
               <MainPage
                 key={"manny"}
                 mainbodyinfo={appdata}
-                Maindata={MainData}
-                Sidedata={SideData}
+                sidedata={sidedata}
+                apk={apk}
+                domain={domain}
+                vidat={vidat}
               />
             }
           />
-          {/* we need to set an "index" page, b/c without it there will nothing be rendered, otherword we need to setup something to render off the bat*/}
           <Route
             path="/:pageid"
             element={
               <MainPage
                 key={"anny"}
                 mainbodyinfo={appdata}
-                Maindata={MainData}
-                Sidedata={SideData}
+                sidedata={sidedata}
+                apk={apk}
+                domain={domain}
+                vidat={vidat}
               />
             }
-            // you might have to create an identical page (another different element), that is dicated to using the useeffet and params, in otherwords,
           />
           <Route path="/upload" element={<UploadPage />} />
         </Routes>
-      </main>
+      )}
     </div>
   );
 }

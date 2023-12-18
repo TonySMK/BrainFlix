@@ -4,11 +4,11 @@ import { Link, useParams } from "react-router-dom";
 
 import NextVideoCard from "./nextvideocard_section/NextVideoCardComp.jsx";
 
-export default function NextVideoSection({ data1, data2 }) {
+export default function NextVideoSection({data2 }) {
   const { pageid } = useParams();
   // console.log(pageid)
   // console.log(data2[0].id)
-  let intialfilteroutitle;
+  let intialfilteroutitle
 
   // simular to the if statement in the MainBody.jsx, sets a conditinal output depending on the value of pageid
   if (pageid !== undefined) {
@@ -24,7 +24,6 @@ export default function NextVideoSection({ data1, data2 }) {
       <Link key={object.id} to={`/${object.id}`}>
         {/* this where we attach the object specific ID to the url */}
         <NextVideoCard
-          data1={data1}
           data2={object}
           onClickNxtShuffle={onClickNxtShuffle}
         />
@@ -40,7 +39,6 @@ export default function NextVideoSection({ data1, data2 }) {
         <Link key={object.id} to={`/${object.id}`}>
           {/* this where we attach the object specific ID to the url */}
           <NextVideoCard
-            data1={data1}
             data2={object}
             onClickNxtShuffle={onClickNxtShuffle}
           />
