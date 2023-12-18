@@ -16,7 +16,7 @@ export default function App() {
   // console.log(initalmainbodyinfo);
 
   let sam = initalmainbodyinfo;
-  const [some, setSome] = useState(initalmainbodyinfo);
+  const [appdata, setAppdata] = useState(initalmainbodyinfo);
 
   // useEffect(() => {
   //   setObjectPass(intialfounddata);
@@ -34,7 +34,7 @@ export default function App() {
             element={
               <MainPage
                 key={"manny"}
-                mainbodyinfo={some}
+                mainbodyinfo={appdata}
                 Maindata={MainData}
                 Sidedata={SideData}
               />
@@ -46,7 +46,7 @@ export default function App() {
             element={
               <MainPage
                 key={"anny"}
-                mainbodyinfo={some}
+                mainbodyinfo={appdata}
                 Maindata={MainData}
                 Sidedata={SideData}
               />
