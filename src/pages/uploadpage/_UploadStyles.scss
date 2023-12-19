@@ -1,0 +1,168 @@
+@use "../../styles//partials/bootstrap" as bs;
+@import "../../styles//partials/variables";
+
+.uploadbackgroundwrap{
+    border-top: 1px solid $silver-second;
+    @include bs.desktop{
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+}
+
+.uploadpage{
+    // background-color: aqua;
+    @include bs.padding16;
+    padding-top: 1.5rem;
+    padding-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap:1rem;
+    @include bs.tablet{
+        @include bs.padding24;
+    }
+    @include bs.desktop{
+        width: 1020px;
+        @include bs.paddingdesktop;
+    }
+
+    &__title{
+        @include bs.font700(24px, 32px, $black-prime);
+
+        @include bs.tablet{
+            @include bs.font700(33px, 44px, $black-prime);
+        }
+    }
+
+    &__body{
+        width: 100%;
+        // background-color: blue;
+        display:flex;
+        flex-direction: column;
+
+        @include bs.tablet{
+            border-top: 1px solid $silver-second;
+            border-bottom: 1px solid $silver-second;
+            padding-top: 1.5rem;
+            padding-bottom: 1.5rem;
+        }
+        @include bs.desktop{
+            flex-direction: row;
+        }
+    }
+
+    &__buttons{
+        width:100%;
+        display: flex;
+        flex-direction: column;
+        @include bs.tablet{
+            flex-direction: row;
+            justify-content: flex-end;
+        }
+    }
+}
+
+.uploadbody{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    @include bs.tablet{
+        width: 50%;
+    }
+
+    @include bs.desktop{
+        width: 327px;
+        margin-right: 1.5rem;
+    }
+
+    &__thumbnailtitle{
+        @include bs.font700(13px, 18px, $silver-prime);
+        
+        @include bs.tablet{
+            @include bs.font700(14px, 22px, $silver-prime);
+        }
+    }
+
+    .thumbnailimage{
+        width: 100%;
+        aspect-ratio: 1/0.55;
+        border-radius: 5px;
+        margin-bottom: 1rem;
+
+        @include bs.desktop{
+            margin-bottom: 0rem;
+        }
+    }
+} 
+
+.uploadform{
+    // background-color: rgb(220, 136, 26);
+    display: flex;
+    flex-direction: column;
+
+    @include bs.desktop{
+        justify-content: space-between;
+        flex-grow: 1
+    }
+
+    &__labeltitle, &__labledescription{
+        @include bs.font700(13px, 18px, $silver-prime);
+        text-transform: uppercase;
+        @include bs.tablet{
+            @include bs.font700(14px, 22px, $silver-prime);
+        }
+
+    }
+
+    &__inputtitle, &__inputdescription{
+        width: 100%;
+        box-sizing: border-box;
+        border-radius: 4px;
+        outline: none;
+        border: 1px solid $silver-second;
+        background-color: $white-second;
+    }
+    &__inputtitle{
+        height: 41px;
+        padding-left: 0.5rem;
+        margin-bottom: 1rem;
+    }
+    &__inputdescription{
+        height: 80px;
+        resize: none;
+        padding-left: 0.75rem;
+        padding-top: 0.75rem;
+
+    }
+}
+
+::placeholder {
+    color: $black-second;
+    opacity: 1; /* Firefox */
+  }
+  
+  ::-ms-input-placeholder { /* Edge 12 -18 */
+    color: $black-second;
+  }
+
+.publishbuttonwrapper{
+    width: 100%;
+    margin-bottom: 1rem;
+    @include bs.tablet{
+        order: 2;
+        width: 154px;
+    }
+    @include bs.desktop{
+        margin-bottom: 0rem;
+    }
+}
+
+.cancelbuttonwrapper{
+    width: 100%;
+    @include bs.tablet{
+        width: 154px;
+    }
+}

@@ -25,7 +25,7 @@ export default function CommentSection({
   function fetchcomments(){
     axios.get(domain + vidat + `/${pageid}` + apk).then((result) => {
       let commentdata = result.data.comments;
-      setNewComments(reorder(commentdata));
+      setNewComments(commentdata);
       setCodeState(false);
     }).catch(console.log("promise broken"));
   }
@@ -44,7 +44,10 @@ export default function CommentSection({
 
 
   function onclicklikehandler(name, comment) {
-    axios
+    if(!comment){
+      alert("Empty comment?")
+    }else{
+      axios
       .post(
         domain + vidat + `/${pageid}/comments` + apk, {
           name: `${name}`,
@@ -55,6 +58,8 @@ export default function CommentSection({
       .catch((error) => {
         console.log(error);
       });
+    }
+
   }
   return (
     <>
@@ -77,7 +82,7 @@ export default function CommentSection({
               </div>
 
               <div className="commentscollection"></div>
-              {selectedcommentsdata.map((iteration) => (
+              {reorder(selectedcommentsdata).map((iteration) => (
                 <CommentCard
                   message={iteration.comment}
                   name={iteration.name}

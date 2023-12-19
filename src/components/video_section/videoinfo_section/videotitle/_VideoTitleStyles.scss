@@ -2,7 +2,6 @@
 @import "../../../../styles/partials/variables";
 
 .videotitlebackground{
-    // background-color:aquamarine;
     @include bs.padding16;
 
     @include bs.desktop{
@@ -25,5 +24,4 @@
     }
 
     padding-right: 2.5rem;
-    // padding-right for "right justification"
 }

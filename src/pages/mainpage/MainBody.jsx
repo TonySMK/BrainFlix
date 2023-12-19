@@ -51,7 +51,6 @@ export default function PageBody({
         <section>PAGE Loading...</section>
       ) : (
         <main>
-          placeholer
           <VideoComp
             videodata={mainbodyinfo.video}
             imagedata={mainbodyinfo.image}

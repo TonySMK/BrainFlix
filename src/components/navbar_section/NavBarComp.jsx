@@ -6,12 +6,13 @@ import SearchIcon from "../../assets/icons/search.svg";
 import { Link } from "react-router-dom";
 
 export default function NavBarComp() {
+
   return (
     <header className="navbackgroundwrap">
       <nav className="nav">
         <div className="nav__first">
           <div className="mainlogo">
-            <Link to={"/"}>
+            <Link to={"/"} style={{ textDecoration: "none" }}>
               <img
                 className="mainlogo__img"
                 src={BrainflixLogo}
@@ -23,7 +24,6 @@ export default function NavBarComp() {
 
         <div className="nav__second">
           <div className="searchcontainer">
-            
             <div className="searchcontainer__imgwarp">
               <img
                 className="searchcontainer__imgwarp__iconsearch"
@@ -39,10 +39,15 @@ export default function NavBarComp() {
               maxLength="15"
             />
           </div>
-          <AvatarComp location="nav" icon="true" />
-          <Link to={"/upload"}>
-          <ButtonComp name="upload"/>   
-          </Link>
+          <div className="avatarwrapper">
+            <AvatarComp location="nav" icon="true" />
+          </div>
+
+          <div className="uploadbuttonwrapper">
+            <Link to="/upload" style={{ textDecoration: "none" }}>
+              <ButtonComp name="upload" urlreference="/upload" />
+            </Link>
+          </div>
         </div>
       </nav>
     </header>

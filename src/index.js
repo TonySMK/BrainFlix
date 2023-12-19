@@ -12,8 +12,6 @@ root.render(
       <App />
     </BrowserRouter>
   </React.StrictMode>
-  // what is React.StrictMode
-  // how the index.html referencing this file? with import? on line3???
 );
 
 // If you want to start measuring performance in your app, pass a function

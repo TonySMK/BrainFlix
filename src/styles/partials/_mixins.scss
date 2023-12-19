@@ -13,6 +13,7 @@
     color: $color;
 }
 
+//apply padding pre-sets
 @mixin padding16{
     width: 100%;
     box-sizing: border-box;

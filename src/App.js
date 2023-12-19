@@ -8,10 +8,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function App() {
-  let url = "https://project-2-api.herokuapp.com/videos?api_key=b33";
   let domain = "https://project-2-api.herokuapp.com";
   let vidat = "/videos";
-  let apk = "?api_key=b33";
+  let apk = "?api_key=17gt8c0a-83dc-4b96-856a-5dqwe2772b1";
 
   const [appstate, setAppState] = useState(true);
   const [appdata, setAppdata] = useState(null);

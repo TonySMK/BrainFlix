@@ -10,10 +10,10 @@
   text-transform: uppercase;
   display: flex;
   align-items: center;
-  position: relative;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   @include bs.font400(12px, 20px, $white-prime);
+  // text-decoration: none;
   
   @include bs.tablet{
     height: 40px;
@@ -27,8 +27,13 @@
 .buttonupload {
   width: 100%;
   @include bs.tablet{
-    width: 200px;
+    width: 150px;
     margin-right: 1rem;
+  }
+
+  @include bs.desktop{
+      // width: 100%;
+    margin-right: 2rem;
   }
 
   &__icon {
@@ -38,16 +43,10 @@
   &__text {
     flex-grow: 1;
     text-align: center;
-  }
-  
-  @include bs.desktop{
-
   }
 }
 
 .buttoncomment {
-  // width: 100%;
-
   &__icon {
     position: absolute;
   }
@@ -56,4 +55,23 @@
     flex-grow: 1;
     text-align: center;
   }
+}
+
+.buttonpublish{
+  width: 100%;
+  &__icon {
+    position: absolute;
+  }
+
+  &__text {
+    flex-grow: 1;
+    text-align: center;
+  }
+}
+
+.buttoncancel{
+  width: 100%;
+  justify-content: center;
+  background-color: $white-prime;
+  @include bs.font400(12px, 20px, $blue-prime);
 }
