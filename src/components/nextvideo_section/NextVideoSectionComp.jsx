@@ -1,26 +1,30 @@
 import "./_NextVideoSectionStyles.scss";
 import { useState } from "react";
+import { Link, useParams } from "react-router-dom";
 
 import NextVideoCard from "./nextvideocard_section/NextVideoCardComp.jsx";
 
-export default function NextVideoSection({
-  data1,
-  data2,
-  onClickInfoHandler,
-  onClickForCommentHandler,
-}) {
-  // console.log(data2);
+export default function NextVideoSection({data2 }) {
+  const { pageid } = useParams();
+
+  let intialfilteroutitle
+
+  if (pageid !== undefined) {
+    let something = data2.find((element) => element.id === pageid);
+    intialfilteroutitle = something.title;
+  } else if (pageid === undefined) {
+    intialfilteroutitle = data2[0].title;
+  }
 
   const initalrender = data2
-    .filter((data2set) => data2set.title !== data2[0].title)
+    .filter((data2set) => data2set.title !== intialfilteroutitle)
     .map((object) => (
-      <NextVideoCard
-        key={object.id}
-        onClickInfoHandler={onClickInfoHandler}
-        data2={object}
-        onClickNxtShuffle={onClickNxtShuffle}
-        onClickForCommentHandler={onClickForCommentHandler}
-      />
+      <Link key={object.id} to={`/${object.id}`}>
+        <NextVideoCard
+          data2={object}
+          onClickNxtShuffle={onClickNxtShuffle}
+        />
+      </Link>
     ));
 
   const [render, setRender] = useState(initalrender);
@@ -29,13 +33,12 @@ export default function NextVideoSection({
     const updatedrender = data2
       .filter((data2set) => data2set.title !== titleofclickeddiv)
       .map((object) => (
-        <NextVideoCard
-          key={object.id}
-          data2={object}
-          onClickNxtShuffle={onClickNxtShuffle}
-          onClickInfoHandler={onClickInfoHandler}
-          onClickForCommentHandler={onClickForCommentHandler}
-        />
+        <Link key={object.id} to={`/${object.id}`}>
+          <NextVideoCard
+            data2={object}
+            onClickNxtShuffle={onClickNxtShuffle}
+          />
+        </Link>
       ));
     setRender(updatedrender);
   }

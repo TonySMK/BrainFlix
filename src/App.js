@@ -1,140 +1,78 @@
-// auxiliary imports
-import './App.scss';
-import { useState } from 'react';
-import BodyData from "./data/video-details.json"
-import SDData from "./data/videos.json"
-import {timeElapsed, dateCoverstion} from "./utilityfunctions.js"
+import "./App.scss";
+import { Route, Routes } from "react-router-dom";
+import MainPage from "./pages/mainpage/MainBody.jsx";
+import UploadPage from "./pages/uploadpage/Upload.jsx";
 
-// components
-import NavBarComp from './components/navbar_section/NavBarComp.jsx';
-import VideoComp from "./components/video_section/VideoComp.jsx";
-import VideoTitleComp from "./components/video_section/videoinfo_section/videotitle/VideoTitleComp.jsx"
-import VideoStatsComp from "./components/video_section/videoinfo_section/videostats/VideoStatsComp.jsx"
-import VideoDescription from "./components/video_section/videoinfo_section/videodescription_section/VideoDesComp.jsx"
-import CommentComp from "./components/video_section/videocomments_section/commentsection/CommentComp.jsx"
-import CommentCard from "./components/video_section/videocomments_section/commentcard/CommentCardComp.jsx"
-import NextVideoSection from './components/nextvideo_section/NextVideoSectionComp.jsx';
-
-
+import NavBarComp from "./components/navbar_section/NavBarComp.jsx";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function App() {
-  const bodydata = BodyData
-  const sidedata = SDData
-    // ---------------------------------------------------------------------
-  const initalmainbodyinfo = bodydata.filter((bodydataset)=> bodydataset.title === bodydata[0].title)
+  let domain = "https://project-2-api.herokuapp.com";
+  let vidat = "/videos";
+  let apk = "?api_key=17gt8c0a-83dc-4b96-856a-5dqwe2772b1";
 
-  const[mainbodyinfo, setMainBodyInfo] = useState(initalmainbodyinfo[0])
+  const [appstate, setAppState] = useState(true);
+  const [appdata, setAppdata] = useState(null);
+  const [sidedata, setSideData] = useState(null);
 
-  function updatemainbodyinfo(inboundobject){
-    const updatedmainbodyinfo = bodydata.filter((bodydataset)=> bodydataset.title === inboundobject)
-    setMainBodyInfo(updatedmainbodyinfo[0])
-  }
+  useEffect(() => {
+    axios
+      .get(domain + vidat + apk)
+      .then((res) => {
+        let sidedata = res.data;
+        setSideData(sidedata);
+        let sidedata0 = sidedata[0].id;
+        return sidedata0;
+      })
+      .then((sidedata0) => {
+        axios.get(`${domain}${vidat}/${sidedata0}${apk}`).then((res) => {
+          let intialappdata = res.data;
+          setAppdata(intialappdata);
+          setAppState(false);
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
-  const commentsdata = mainbodyinfo.comments
-
-  // ---------------------------------------------------------------------
-  // setting up dynamic comment updating--------------commentpayload-------------------------------
-  const [commentpayload, setCommentPayload] = useState(commentsdata)
-  // we are going have an "interception" of the returned comment data, 
-  // where we are going do somesort of state/formatting check before that comment data is going to the final step of rendering it with .map method 
-  // -the final step before the actual rendering of the comments
-  console.log(commentpayload)
-
-  function updatingCommentPayloadduetoFromInput (takeinanobject) {
-    // gets inbound comment data, then adds a comment, formats it so setCommentRender state can use it
-    // that object("takeinanobject") is going to be added to a spreaded array that will then be the referred to the setCommentPayload
-    let newcommentpayload = [takeinanobject, ...commentpayload]
-    setCommentPayload(newcommentpayload)
-    // const updatecomments = commentpayload.map((iteration) => ( 
-    // this is does not work for some reason?    
-    const updatecomments = newcommentpayload.map((iteration) => (
-      
-      <CommentCard
-        message={iteration.comment}
-        name={iteration.name}
-        time={dateCoverstion(iteration.timestamp)}
-        likes={iteration.likes}
-        key={iteration.id}
-      />
-      ))
-    setCommentRender(updatecomments)
-  }
-  // ---------------------------------------------------------------------
-  const intialcommentrender = commentsdata.map((iteration) => (
-    <CommentCard
-      message={iteration.comment}
-      name={iteration.name}
-      time={dateCoverstion(iteration.timestamp)}
-      likes={iteration.likes}
-      key={iteration.id}
-    />
-  ));
-
-  const [commentrender, setCommentRender] = useState(intialcommentrender);
-
-  
-  function updatedcommentrender(datafromdata1){
-    const forcorpresondingdata = bodydata.filter((bodydataset)=> bodydataset.title === datafromdata1)
-    let updatedcommentarray = forcorpresondingdata[0].comments
-    console.log(updatedcommentarray)
-    const updatedcommentrender = updatedcommentarray.map((iteration) => (
-      <CommentCard
-        message={iteration.comment}
-        name={iteration.name}
-        time={dateCoverstion(iteration.timestamp)}
-        likes={iteration.likes}
-        key={iteration.id}
-      />
-      ))
-    setCommentRender(updatedcommentrender)
-  }
-
-  // ---------------------------------------------------------------------
   return (
-    <div  className='appwrapper'>
-    <NavBarComp />
-    <VideoComp 
-      videodata = {mainbodyinfo.video}
-      imagedata = {mainbodyinfo.image}
-    />
-    <VideoTitleComp
-      titledata = {mainbodyinfo.title}
-    />
-    <VideoStatsComp 
-      channeldata = {mainbodyinfo.channel}
-      timestampdata = {dateCoverstion(mainbodyinfo.timestamp)}
-      likesdata = {mainbodyinfo.likes}
-      viewsdata = {mainbodyinfo.views}
-    />
-    <VideoDescription 
-    descriptiondata = {mainbodyinfo.description}
-    />
-    <CommentComp 
-      mappedelements={commentrender}
-      commentdata={commentpayload}
-      updatecommentpayload = {updatingCommentPayloadduetoFromInput}
-    />
-    <NextVideoSection
-      onClickInfoHandler={updatemainbodyinfo}
-      onClickForCommentHandler={updatedcommentrender}
-      data1={bodydata}
-      data2={sidedata}
-    />
+    <div className="appwrapper">
+      <NavBarComp />
+      {appstate ? (
+        <section>Loading Data...</section>
+      ) : (
+        <Routes>
+          <Route
+            index
+            element={
+              <MainPage
+                key={"manny"}
+                mainbodyinfo={appdata}
+                sidedata={sidedata}
+                apk={apk}
+                domain={domain}
+                vidat={vidat}
+              />
+            }
+          />
+          <Route
+            path="/:pageid"
+            element={
+              <MainPage
+                key={"anny"}
+                mainbodyinfo={appdata}
+                sidedata={sidedata}
+                apk={apk}
+                domain={domain}
+                vidat={vidat}
+              />
+            }
+          />
+          <Route path="/upload" element={<UploadPage />} />
+        </Routes>
+      )}
     </div>
   );
-};
-
-
-/*
-// spread array and add new object to make a new clones array
-let list = SDData
-console.log(list[0].comments) 
-
-let comments = list[0].comments
-
-let newdata = {name:"tony", color:"red"}
-
-let updatedarray = [...comments, newdata]
-
-console.log(updatedarray)
-*/
+}

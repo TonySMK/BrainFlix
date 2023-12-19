@@ -1,24 +1,11 @@
 import "./_NextVideoCardStyles.scss";
 
-export default function NextVideoCard({
-  data2,
-  onClickNxtShuffle,
-  onClickInfoHandler,
-  onClickForCommentHandler,
-}) {
-  //   console.log(data2.title);
-
-  function functionhandler(titlereference1) {
-    onClickNxtShuffle(titlereference1);
-    onClickInfoHandler(titlereference1);
-    onClickForCommentHandler(titlereference1);
-  }
-
+export default function NextVideoCard({ data2, onClickNxtShuffle }) {
   return (
     <section
       className="nxtvideocard"
       onClick={() => {
-        functionhandler(data2.title);
+        onClickNxtShuffle(data2.title);
       }}
     >
       <div className="nxtvideocard__thumbnailcontainer">

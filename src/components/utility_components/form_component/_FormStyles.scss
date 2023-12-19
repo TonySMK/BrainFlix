@@ -9,7 +9,6 @@
   margin-left: 1rem;
 
   &__label {
-    // margin-bottom: 1rem;
     @include bs.font400(13px, 18px, $silver-prime)
   }
 
@@ -18,10 +17,12 @@
     height: 6rem;
     outline: none;
     border-radius: 4px;
-    border: 1px solid $silver-prime;
+    border: 1px solid $silver-second;
     resize: none;
 
     padding-top: 0.75rem;
     padding-left: 0.75rem;
+
+
   }
 }

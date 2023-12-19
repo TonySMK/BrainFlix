@@ -1,29 +1,38 @@
 @use '../../styles/partials/bootstrap' as bs;
 @import '../../styles/partials/variables';
 
+.navbackgroundwrap{
+    @include bs.desktop{
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+}
 .nav{
     background-color: $white-prime;
     @include bs.padding16;
     height: auto;
-    // height: 200px;
-    // this is not respecting the imported htmls from the components
+
     display: flex;
     flex-direction:column;
-    // justify-content: space-between;
     padding-top: 1rem;
     padding-bottom: 1rem;
 
     @include bs.tablet{
         @include bs.padding24;
-        // background-color: red;
         flex-direction:row;
         justify-content: space-between;
         align-items: center;
     }
 
+    @include bs.desktop{
+        width: 1020px;
+        @include bs.paddingdesktop;
 
+    }
+    
     &__first{
-        background-color: grey;
+        background-color: $white-prime;
         display: flex;
         justify-content: center;
         flex-direction: row;
@@ -37,13 +46,16 @@
     &__second{
         background-color: $white-prime;
         display: flex;
-        justify-content: space-between;
         flex-wrap: wrap;
 
         @include bs.tablet{
             flex-wrap: nowrap;
             align-items: center;
-            width: 60%;
+            width: auto;
+        }
+
+        @include bs.desktop{
+            width: 50%;
         }
     }
 }
@@ -65,20 +77,18 @@
     }
 
     &__link{
-        // background-color: red;
         position: absolute;
         width: inherit;
         height: inherit;
         left: 0px;
         opacity: 0;
-        // this opacity attribute allow the element to have value, but display i
     }
 }
 
 .searchcontainer{
-    // background-color: bisque;
     display: flex;
     flex-wrap: wrap;
+    width: 75%;
     height: 36px;
     margin-right: 1rem;
     margin-bottom: 1rem;
@@ -88,10 +98,10 @@
     @include bs.tablet{
         height: 40px;
         margin: 0rem;
+        width: 200px;
     }
 
     &__imgwarp{
-        // background-color: red;
         height: 100%;
         aspect-ratio: 1/1;
         position: absolute;
@@ -101,9 +111,6 @@
 
         &__iconsearch{
             width: 50%;
-            // position: absolute;
-            // display: block;
-            // margin: auto;
         }
     }
 
@@ -119,18 +126,29 @@
 
         @include bs.tablet{
             @include bs.font400(12px, 20px, $black-second);
-            // background-color: grey;
+            margin-right:1rem;
             width:200px;
         }
 
-    
-        // border-left: black;
-        // might need to make this padding value something else more deliberate...
+        @include bs.desktop{
+            flex-grow:1;
+            margin-right:1.5rem;
+        }
     }
 }
 
-.buttonupload{
-    width: 100%;
-    background-color: rgb(200, 210, 210);
-    display: flex;
+.uploadbuttonwrapper{
+    flex-basis:100%;
+
+    @include bs.tablet{
+        flex-basis: 0;
+    }
+}
+
+.avatarwrapper{
+    width: 36px;
+    @include bs.tablet{
+        width: 40px;
+        order: 1;
+    }
 }
