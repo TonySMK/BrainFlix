@@ -6,8 +6,10 @@ import UploadPage from "./pages/uploadpage/Upload.jsx";
 import NavBarComp from "./components/navbar_section/NavBarComp.jsx";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 export default function App() {
+  const { pageid } = useParams();
   let domain = "https://project-2-api.herokuapp.com";
   let vidat = "/videos";
   let apk = "?api_key=17gt8c0a-83dc-4b96-856a-5dqwe2772b1";

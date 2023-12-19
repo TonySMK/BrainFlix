@@ -31,6 +31,7 @@ export default function PageBody({
     if (pageid === undefined) {
       setCompState(false);
     }
+    return
   }, []);
 
   useEffect(() => {

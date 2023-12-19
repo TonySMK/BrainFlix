@@ -1,0 +1,6 @@
+atm...
+
+-we are able to post messages to the api in the defualt url, but we are not able to rerender the page body, and in order to see those new post we need a hard refresh
+
+-without a hard refresh, when we post comments to (/84e96018-4022-434e-80bf-000ce4cd12b8 the defualt starting page), then go back to the "/", those new posts are not rendered
+    -this case regardless of where we come from to the "/"
