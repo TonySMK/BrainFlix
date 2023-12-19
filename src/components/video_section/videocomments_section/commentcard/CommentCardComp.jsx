@@ -1,7 +1,7 @@
 import "./_CommentCardStyles.scss";
 import AvatarComp from "../../../utility_components/avatar_component/AvatarComp.jsx";
 
-export default function CommentCard({ message, name, time, likes }) {
+export default function CommentCard({ message, name, time }) {
   return (
     <>
       <div className="cardouterwrap">
