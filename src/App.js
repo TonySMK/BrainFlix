@@ -1,26 +1,26 @@
+// aux import
 import "./App.scss";
 import { Route, Routes } from "react-router-dom";
-import MainPage from "./pages/mainpage/MainBody.jsx";
-import UploadPage from "./pages/uploadpage/Upload.jsx";
-
-import NavBarComp from "./components/navbar_section/NavBarComp.jsx";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+
+//component imports
+import MainBody from "./pages/mainpage/MainBody.jsx";
+import UploadPage from "./pages/uploadpage/Upload.jsx";
+import NavBarComp from "./components/navbar_section/NavBarComp.jsx";
 
 export default function App() {
-  const { pageid } = useParams();
   let domain = "https://project-2-api.herokuapp.com";
-  let vidat = "/videos";
-  let apk = "?api_key=17gt8c0a-83dc-4b96-856a-5dqwe2772b1";
+  let video_subdirectory = "/videos";
+  let api_key = "?api_key=17gt8c0a-83dc-4b96-856a-5dqwe2772b1";
 
   const [appstate, setAppState] = useState(true);
-  const [appdata, setAppdata] = useState(null);
+  const [mainbodyinfo, setMainBodyInfo] = useState(null);
   const [sidedata, setSideData] = useState(null);
 
   useEffect(() => {
     axios
-      .get(domain + vidat + apk)
+      .get(domain + video_subdirectory + api_key)
       .then((res) => {
         let sidedata = res.data;
         setSideData(sidedata);
@@ -28,11 +28,13 @@ export default function App() {
         return sidedata0;
       })
       .then((sidedata0) => {
-        axios.get(`${domain}${vidat}/${sidedata0}${apk}`).then((res) => {
-          let intialappdata = res.data;
-          setAppdata(intialappdata);
-          setAppState(false);
-        });
+        axios
+          .get(`${domain}${video_subdirectory}/${sidedata0}${api_key}`)
+          .then((res) => {
+            let intialappdata = res.data;
+            setMainBodyInfo(intialappdata);
+            setAppState(false);
+          });
       })
       .catch((error) => {
         console.log(error);
@@ -49,26 +51,26 @@ export default function App() {
           <Route
             index
             element={
-              <MainPage
+              <MainBody
                 key={"manny"}
-                mainbodyinfo={appdata}
+                mainbodyinfo={mainbodyinfo}
                 sidedata={sidedata}
-                apk={apk}
+                api_key={api_key}
                 domain={domain}
-                vidat={vidat}
+                video_subdirectory={video_subdirectory}
               />
             }
           />
           <Route
             path="/:pageid"
             element={
-              <MainPage
+              <MainBody
                 key={"anny"}
-                mainbodyinfo={appdata}
+                mainbodyinfo={mainbodyinfo}
                 sidedata={sidedata}
-                apk={apk}
+                api_key={api_key}
                 domain={domain}
-                vidat={vidat}
+                video_subdirectory={video_subdirectory}
               />
             }
           />

@@ -1,7 +1,7 @@
 import "./_CommentStyles.scss";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { dateCoverstion, reorder, timeElapsed } from "../../../../utilityfunctions.js";
+import { reorder, timeElapsed } from "../../../../utilityfunctions.js";
 import axios from "axios";
 
 import CommentCard from "../commentcard/CommentCardComp.jsx";
@@ -10,46 +10,63 @@ import FormComp from "../../../utility_components/form_component/FormComp.jsx";
 
 export default function CommentSection({
   selectedcommentsdata,
-  apk,
+  api_key,
   domain,
-  vidat,
+  video_subdirectory,
 }) {
   const { pageid } = useParams();
   const [codestate, setCodeState] = useState(true);
-  // const [newcomments, setNewComments] = useState(null);
-  const [commentstate, setCommentState] = useState(selectedcommentsdata)
-  const defualtpageid = "84e96018-4022-434e-80bf-000ce4cd12b8"
+  const [commentstate, setCommentState] = useState(selectedcommentsdata) // this just set the inital comments array for that tab
+  const defualtpageid = "84e96018-4022-434e-80bf-000ce4cd12b8" // this section allows functionality on defualt page (ex. http://localhost:3000/)
 
-  // if (pageid !== undefined) {
-  //   selectedcommentsdata = newcomments;
-  // }
-
-//----------
-  // useEffect(()=>{
-  //   if (pageid !== undefined) {
-  //     console.log(newcomments)
-  //     setCommentState(newcomments)
-  //   }
-  // })
 
   function fetchcomments(){
-    axios.get(domain + vidat + `/${pageid}` + apk).then((result) => {
+    axios.get(domain + video_subdirectory + `/${pageid}` + api_key).then((result) => {
       let commentdata = result.data.comments;
-      // setNewComments(commentdata);
-      // setCommentState(newcomments)
       setCommentState(commentdata);
       setCodeState(false);
-    }).catch(console.log("promise broken"));
+    }).catch((e) => {
+      console.log("promise broken", e);
+    });
   }
 
     function fetchcomments2(){
-    axios.get(domain + vidat + `/${defualtpageid}` + apk).then((result) => {
+      // this section allows functionality on defualt page (ex. http://localhost:3000/)
+      // ... that being able to grab the most updated comment array...
+    axios.get(domain + video_subdirectory + `/${defualtpageid}` + api_key).then((result) => {
       let commentdata = result.data.comments;
       setCommentState(commentdata);
       setCodeState(false);
-    }).catch(console.log("promise broken"));
+    }).catch((e) => {
+      console.log("promise broken", e);
+    });
   }
 
+  function postComment(pagidintake, name, comment){
+    axios
+      .post(
+        domain + video_subdirectory + `/${pagidintake}/comments` + api_key, {
+          name: `${name}`,
+          comment: `${comment}`
+      }).then(result => {
+        if (pageid===undefined){
+      // this section allows functionality on defualt page (ex. http://localhost:3000/)
+          fetchcomments2()
+        }else{
+          fetchcomments()
+        }
+
+      })
+      .catch((e)=>console.log("promise broken"));
+  }
+
+  useEffect(() => {
+    if (pageid === undefined) {
+      // this section allows functionality on defualt page (ex. http://localhost:3000/)
+      fetchcomments2()
+      setCodeState(false);
+    }
+  }, []);
 
   useEffect(() => {
     if (pageid !== undefined) {
@@ -57,49 +74,21 @@ export default function CommentSection({
     }
   }, [pageid]);
 
-  useEffect(() => {
-    if (pageid === undefined) {
-      setCodeState(false);
-    }
-  }, []);
 
 
-  function onclicklikehandler(name, comment) {
+  function onClickFormHandler(name, comment) {
     if(!comment){
       alert("Empty comment?")
-    }else{
-      if(pageid==undefined){
-        axios
-      .post(
-        domain + vidat + `/${defualtpageid}/comments` + apk, {
-          name: `${name}`,
-          comment: `${comment}`
-      }).then(result => {
-          //----------v
-          fetchcomments2()
-          // with fetchcomment2() + some other stuff, we get default page to upadate but we break the other route to either not be able to fetch propertly and/or cause a infinite rerender and/or out array for .map breaks
-          // over here have to somehow update the snapshot of the axios call data made in app.js that was use to render "/" route
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-      }else{
-        axios
-      .post(
-        domain + vidat + `/${pageid}/comments` + apk, {
-          name: `${name}`,
-          comment: `${comment}`
-      }).then(result => {
-          fetchcomments()
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-      }
-      
+    }else if (pageid!==undefined){
+      postComment(pageid, name, comment)
+    } else {
+      // this section allows functionality on defualt page (ex. http://localhost:3000/)
+      // that being able to post commments on the default page, and see them rendered with fetchcomments2
+      postComment(defualtpageid, name, comment)
     }
+    
   }
-  console.log(commentstate)
+
   return (
     <>
       {codestate ? (
@@ -115,15 +104,12 @@ export default function CommentSection({
                     <AvatarComp location="formicon" icon="true" />
                   </div>
                   <FormComp
-                    onclicklikehandler={onclicklikehandler}
+                    onClickFormHandler={onClickFormHandler}
                   />
                 </div>
               </div>
 
               <div className="commentscollection"></div>
-              {/* ----------- */}
-              
-              {/* {reorder(selectedcommentsdata).map((iteration) => ( */}
               {reorder(commentstate).map((iteration) => (
                 <CommentCard
                   message={iteration.comment}

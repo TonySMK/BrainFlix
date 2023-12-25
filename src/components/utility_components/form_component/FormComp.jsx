@@ -1,20 +1,20 @@
 import "./_FormStyles.scss";
 import Button from "../button_component/ButtonComp";
 
-export default function FormComp({onclicklikehandler}) {
+export default function FormComp({onClickFormHandler}) {
 
-  function sumoffunctions (event){
+  function handleCommentSubmit (event){
     event.preventDefault();
     let form = event.target
     let comment = event.target.content.value
     let name = "Sam Walker"
 
-    onclicklikehandler(name, comment)
+    onClickFormHandler(name, comment)
     form.reset()
   }
 
   return (
-    <form className="commentright" onSubmit={sumoffunctions}>
+    <form className="commentright" onSubmit={handleCommentSubmit}>
       <label className="commentright__label">Join the Conversation</label>
       <textarea
         className="commentright__textarea"
