@@ -15,16 +15,17 @@ export default function CommentSection({
   video_subdirectory,
 }) {
   const { pageid } = useParams();
-  const [codestate, setCodeState] = useState(true);
+  const [renderstate, setRenderState] = useState(true);
   const [commentstate, setCommentState] = useState(selectedcommentsdata) // this just set the inital comments array for that tab
   const defualtpageid = "84e96018-4022-434e-80bf-000ce4cd12b8" // this section allows functionality on defualt page (ex. http://localhost:3000/)
 
 
   function fetchcomments(){
+    // this fetch function handles the grabbing of comments when the url has a pageId
     axios.get(domain + video_subdirectory + `/${pageid}` + api_key).then((result) => {
       let commentdata = result.data.comments;
       setCommentState(commentdata);
-      setCodeState(false);
+      setRenderState(false);
     }).catch((e) => {
       console.log("promise broken", e);
     });
@@ -33,10 +34,11 @@ export default function CommentSection({
     function fetchcomments2(){
       // this section allows functionality on defualt page (ex. http://localhost:3000/)
       // ... that being able to grab the most updated comment array...
+      // this fetch function handles the grabbing of comment for the deftualt page(iow, the page with the bmx thing...)
     axios.get(domain + video_subdirectory + `/${defualtpageid}` + api_key).then((result) => {
       let commentdata = result.data.comments;
       setCommentState(commentdata);
-      setCodeState(false);
+      setRenderState(false);
     }).catch((e) => {
       console.log("promise broken", e);
     });
@@ -62,14 +64,16 @@ export default function CommentSection({
 
   useEffect(() => {
     if (pageid === undefined) {
+      // this are the initial fetches
       // this section allows functionality on defualt page (ex. http://localhost:3000/)
       fetchcomments2()
-      setCodeState(false);
+      setRenderState(false);
     }
   }, []);
 
   useEffect(() => {
     if (pageid !== undefined) {
+      // this are the initial fetches
       fetchcomments()
     }
   }, [pageid]);
@@ -91,7 +95,7 @@ export default function CommentSection({
 
   return (
     <>
-      {codestate ? (
+      {renderstate ? (
         <section>Loading Comments</section>
       ) : (
         <>

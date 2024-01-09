@@ -79,7 +79,7 @@ export default function PageBody({
     .map((object) => (
       <Link
         key={object.id}
-        to={`/${object.id}`}
+        to={`/videos/${object.id}`}
         style={{ textDecoration: "none" }}
       >
         <NextVideoCard sidedata={object} onClickNxtShuffle={onClickNxtShuffle} />
@@ -93,7 +93,7 @@ export default function PageBody({
       const updatedrender = sidedata
         .filter((data2set) => data2set.title !== titleofclickeddiv)
         .map((object) => (
-          <Link key={object.id} to={`/${object.id}`} style={{ textDecoration: "none" }}>
+          <Link key={object.id} to={`/videos/${object.id}`} style={{ textDecoration: "none" }}>
             <NextVideoCard
               sidedata={object}
               onClickNxtShuffle={onClickNxtShuffle}

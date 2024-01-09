@@ -62,7 +62,7 @@ export default function App() {
             }
           />
           <Route
-            path="/:pageid"
+            path="/videos/:pageid"
             element={
               <MainBody
                 key={"anny"}
