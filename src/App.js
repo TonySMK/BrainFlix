@@ -11,40 +11,45 @@ import NavBarComp from "./components/navbar_section/NavBarComp.jsx";
 
 export default function App() {
   let domain = "https://project-2-api.herokuapp.com";
-  let video_subdirectory = "/videos";
-  let api_key = "?api_key=17gt8c0a-83dc-4b96-856a-5dqwe2772b1";
+  let videoSubdirectory = "/videos";
+  let apiKey = "?api_key=17gt8c0a-83dc-4b96-856a-5dqwe2772b1";
 
-  const [appstate, setAppState] = useState(true);
-  const [mainbodyinfo, setMainBodyInfo] = useState(null);
-  const [sidedata, setSideData] = useState(null);
+  const [compState, setCompState] = useState(true);
+  const [mainBodyInfo, setMainBodyInfo] = useState(null);
+  const [sideInfoData, setSideInfoData] = useState(null);
 
   useEffect(() => {
     axios
-      .get(domain + video_subdirectory + api_key)
+      .get(domain + videoSubdirectory + apiKey)
       .then((res) => {
-        let sidedata = res.data;
-        setSideData(sidedata);
-        let sidedata0 = sidedata[0].id;
-        return sidedata0;
+        let sideData = res.data;
+        setSideInfoData(sideData);
+        let sideDataInitial = sideData[0].id;
+        return sideDataInitial;
       })
-      .then((sidedata0) => {
+      .then((sideDataInitial) => {
         axios
-          .get(`${domain}${video_subdirectory}/${sidedata0}${api_key}`)
+          .get(`${domain}${videoSubdirectory}/${sideDataInitial}${apiKey}`)
           .then((res) => {
-            let intialappdata = res.data;
-            setMainBodyInfo(intialappdata);
-            setAppState(false);
+            let intialAppData = res.data;
+            setMainBodyInfo(intialAppData);
+            setCompState(false);
           });
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
-
+  }, [domain, videoSubdirectory, apiKey]);
+  /*
+"If you do not pass a dependency array to the useEffect hook, 
+it will default to an empty array."
+https://www.dhiwise.com
+/post/understanding-the-importance-of-the-useeffect-dependency-array-in-react
+*/
   return (
     <div className="appwrapper">
       <NavBarComp />
-      {appstate ? (
+      {compState ? (
         <section>Loading Data...</section>
       ) : (
         <Routes>
@@ -53,24 +58,24 @@ export default function App() {
             element={
               <MainBody
                 key={"manny"}
-                mainbodyinfo={mainbodyinfo}
-                sidedata={sidedata}
-                api_key={api_key}
+                mainBodyInfo={mainBodyInfo}
+                sideInfoData={sideInfoData}
+                apiKey={apiKey}
                 domain={domain}
-                video_subdirectory={video_subdirectory}
+                videoSubdirectory={videoSubdirectory}
               />
             }
           />
           <Route
-            path="/videos/:pageid"
+            path="/videos/:pageId"
             element={
               <MainBody
                 key={"anny"}
-                mainbodyinfo={mainbodyinfo}
-                sidedata={sidedata}
-                api_key={api_key}
+                mainBodyInfo={mainBodyInfo}
+                sideInfoData={sideInfoData}
+                apiKey={apiKey}
                 domain={domain}
-                video_subdirectory={video_subdirectory}
+                videoSubdirectory={videoSubdirectory}
               />
             }
           />

@@ -15,43 +15,40 @@ import NextVideoSection from "../../components/nextvideo_section/NextVideoSectio
 import NextVideoCard from "../../components/nextvideo_section/nextvideocard_section/NextVideoCardComp"
 
 export default function PageBody({
-  mainbodyinfo,
-  sidedata,
-  api_key,
+  mainBodyInfo,
+  sideInfoData,
+  apiKey,
   domain,
-  video_subdirectory,
+  videoSubdirectory,
 }) {
-  const { pageid } = useParams();
+  const { pageId } = useParams();
 
-  const [appstate, setAppState] = useState(true);
+  const [compState, setCompState] = useState(true);
   // async axios data retrievel handling
 
-  const [newbodydata, setNewBodyData] = useState(null);
+  const [newMainBodydata, setNewMainBodyData] = useState(null);
 
-  if (pageid !== undefined) {
-    mainbodyinfo = newbodydata;
+  let filteredOutTitle;
+
+  if (pageId !== undefined) {
+    mainBodyInfo = newMainBodydata;
     // this section allows functionality on other page (ex. http://localhost:3000/####...)
     //page change handler
   }
 
   useEffect(() => {
-    if (pageid === undefined) {
-      setAppState(false);
-    }
-    return;
-  }, []);
-
-  useEffect(() => {
-    if (pageid !== undefined) {
+    if (pageId !== undefined) {
       axios
-        .get(domain + video_subdirectory + `/${pageid}` + api_key)
+        .get(domain + videoSubdirectory + `/${pageId}` + apiKey)
         .then((res) => {
-          setNewBodyData(res.data);
-          setAppState(false);
+          setNewMainBodyData(res.data);
+          setCompState(false);
         })
         .catch((e) => console.log("promise broken"));
+    }else{
+      setCompState(false);
     }
-  }, [pageid]);
+  }, [pageId, apiKey, domain, videoSubdirectory]);
 
   //================================================================
   // this is where we are handling and sending the renderings of the NextVideoCard, instead of inside the NextVideoSection
@@ -64,17 +61,16 @@ export default function PageBody({
   // in essence, we are trying to avoid two things, first, passing the mainbodydata or sidedata as their whole down to the children, instead we are trying to pass only what is really needed
   // and second, we want the children to have as little responsiblity as possible, we are trying to move as much "under the hood stuff" as high as possible, instead of as low as possible... why...(i do not recognize the answer's essence atm)
 
-  let filteredOutTitle;
   // console.log(sidedata)
 
-  if (pageid !== undefined) {
-    let something = sidedata.find((element) => element.id === pageid);
-    filteredOutTitle = something.title;
+  if (pageId !== undefined) {
+    let getTitleObject = sideInfoData.find((element) => element.id === pageId);
+    filteredOutTitle = getTitleObject.title;
   } else {
-    filteredOutTitle = sidedata[0].title;
+    filteredOutTitle = sideInfoData[0].title;
   }
 
-  const renderedOutTabs = sidedata
+  const renderedOutTabs = sideInfoData
     .filter((data2set) => data2set.title !== filteredOutTitle)
     .map((object) => (
       <Link
@@ -85,12 +81,11 @@ export default function PageBody({
         <NextVideoCard sidedata={object} onClickNxtShuffle={onClickNxtShuffle} />
       </Link>
     ));
-
-    const [render, setRender] = useState(renderedOutTabs);
+    const [sideDataRender, setSideDataRender] = useState(renderedOutTabs);
     // console.log(render)
 
     function onClickNxtShuffle(titleofclickeddiv) {
-      const updatedrender = sidedata
+      const updatedrender = sideInfoData
         .filter((data2set) => data2set.title !== titleofclickeddiv)
         .map((object) => (
           <Link key={object.id} to={`/videos/${object.id}`} style={{ textDecoration: "none" }}>
@@ -100,42 +95,42 @@ export default function PageBody({
             />
           </Link>
         ));
-      setRender(updatedrender);
+        setSideDataRender(updatedrender);
     }
 
   //================================================================
 
   return (
     <>
-      {appstate ? (
+      {compState ? (
         <section>PAGE Loading...</section>
       ) : (
         <main>
           <VideoComp
-            videodata={mainbodyinfo.video}
-            imagedata={mainbodyinfo.image}
+            videodata={mainBodyInfo.video}
+            imagedata={mainBodyInfo.image}
           />
           <section className="dtwarpperbackground">
             <section className="dtwrapper0">
               <section className="dtwrapper1">
-                <VideoTitleComp titledata={mainbodyinfo.title} />
+                <VideoTitleComp titledata={mainBodyInfo.title} />
                 <VideoStatsComp
-                  channeldata={mainbodyinfo.channel}
-                  timestampdata={dateCoverstion(mainbodyinfo.timestamp)}
-                  likesdata={mainbodyinfo.likes}
-                  viewsdata={mainbodyinfo.views}
+                  channeldata={mainBodyInfo.channel}
+                  timestampdata={dateCoverstion(mainBodyInfo.timestamp)}
+                  likesdata={mainBodyInfo.likes}
+                  viewsdata={mainBodyInfo.views}
                 />
-                <VideoDescription descriptiondata={mainbodyinfo.description} />
+                <VideoDescription descriptiondata={mainBodyInfo.description} />
                 <CommentComp
-                  selectedcommentsdata={mainbodyinfo.comments}
-                  api_key={api_key}
+                  selectedCommentsData={mainBodyInfo.comments}
+                  apiKey={apiKey}
                   domain={domain}
-                  video_subdirectory={video_subdirectory}
+                  videoSubdirectory={videoSubdirectory}
                 />
               </section>
 
               <NextVideoSection
-              render={render}
+              sideDataRender={sideDataRender}
               />
             </section>
           </section>

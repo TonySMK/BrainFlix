@@ -9,53 +9,53 @@ import AvatarComp from "../../../utility_components/avatar_component/AvatarComp.
 import FormComp from "../../../utility_components/form_component/FormComp.jsx";
 
 export default function CommentSection({
-  selectedcommentsdata,
-  api_key,
+  selectedCommentsData,
+  apiKey,
   domain,
-  video_subdirectory,
+  videoSubdirectory,
 }) {
-  const { pageid } = useParams();
-  const [renderstate, setRenderState] = useState(true);
-  const [commentstate, setCommentState] = useState(selectedcommentsdata) // this just set the inital comments array for that tab
-  const defualtpageid = "84e96018-4022-434e-80bf-000ce4cd12b8" // this section allows functionality on defualt page (ex. http://localhost:3000/)
+  const { pageId } = useParams();
+  const [compState, setCompState] = useState(true);
+  const [commentState, setCommentState] = useState(selectedCommentsData) // this just set the inital comments array for that tab
+  const defualtPageId = "84e96018-4022-434e-80bf-000ce4cd12b8" // this section allows functionality on defualt page (ex. http://localhost:3000/)
 
 
-  function fetchcomments(){
+  function fetchComments(){
     // this fetch function handles the grabbing of comments when the url has a pageId
-    axios.get(domain + video_subdirectory + `/${pageid}` + api_key).then((result) => {
-      let commentdata = result.data.comments;
-      setCommentState(commentdata);
-      setRenderState(false);
+    axios.get(domain + videoSubdirectory + `/${pageId}` + apiKey).then((result) => {
+      let getCommentData = result.data.comments;
+      setCommentState(getCommentData);
+      setCompState(false);
     }).catch((e) => {
       console.log("promise broken", e);
     });
   }
 
-    function fetchcomments2(){
+    function fetchComments2(){
       // this section allows functionality on defualt page (ex. http://localhost:3000/)
       // ... that being able to grab the most updated comment array...
       // this fetch function handles the grabbing of comment for the deftualt page(iow, the page with the bmx thing...)
-    axios.get(domain + video_subdirectory + `/${defualtpageid}` + api_key).then((result) => {
-      let commentdata = result.data.comments;
-      setCommentState(commentdata);
-      setRenderState(false);
+    axios.get(domain + videoSubdirectory + `/${defualtPageId}` + apiKey).then((result) => {
+      let getCommentData = result.data.comments;
+      setCommentState(getCommentData);
+      setCompState(false);
     }).catch((e) => {
       console.log("promise broken", e);
     });
   }
 
-  function postComment(pagidintake, name, comment){
+  function postComment(pageIdIntake, name, comment){
     axios
       .post(
-        domain + video_subdirectory + `/${pagidintake}/comments` + api_key, {
+        domain + videoSubdirectory + `/${pageIdIntake}/comments` + apiKey, {
           name: `${name}`,
           comment: `${comment}`
       }).then(result => {
-        if (pageid===undefined){
+        if (pageId===undefined){
       // this section allows functionality on defualt page (ex. http://localhost:3000/)
-          fetchcomments2()
+          fetchComments2()
         }else{
-          fetchcomments()
+          fetchComments()
         }
 
       })
@@ -63,46 +63,39 @@ export default function CommentSection({
   }
 
   useEffect(() => {
-    if (pageid === undefined) {
+    if (pageId !== undefined) {
       // this are the initial fetches
-      // this section allows functionality on defualt page (ex. http://localhost:3000/)
-      fetchcomments2()
-      setRenderState(false);
+      fetchComments()
+    }else{
+      fetchComments2()
     }
-  }, []);
-
-  useEffect(() => {
-    if (pageid !== undefined) {
-      // this are the initial fetches
-      fetchcomments()
-    }
-  }, [pageid]);
+  }, [pageId]);
 
 
 
   function onClickFormHandler(name, comment) {
     if(!comment){
       alert("Empty comment?")
-    }else if (pageid!==undefined){
-      postComment(pageid, name, comment)
+    }else if (pageId!==undefined){
+      postComment(pageId, name, comment)
     } else {
       // this section allows functionality on defualt page (ex. http://localhost:3000/)
       // that being able to post commments on the default page, and see them rendered with fetchcomments2
-      postComment(defualtpageid, name, comment)
+      postComment(defualtPageId, name, comment)
     }
     
   }
 
   return (
     <>
-      {renderstate ? (
+      {compState ? (
         <section>Loading Comments</section>
       ) : (
         <>
           <div className="commentsectionbackground">
             <div className="commentsection">
               <div className="commentform">
-                <div className="commentform__top">{`${commentstate.length} Comments`}</div>
+                <div className="commentform__top">{`${commentState.length} Comments`}</div>
                 <div className="commentform__bot">
                   <div className="commentleft">
                     <AvatarComp location="formicon" icon="true" />
@@ -114,7 +107,7 @@ export default function CommentSection({
               </div>
 
               <div className="commentscollection"></div>
-              {reorder(commentstate).map((iteration) => (
+              {reorder(commentState).map((iteration) => (
                 <CommentCard
                   message={iteration.comment}
                   name={iteration.name}
