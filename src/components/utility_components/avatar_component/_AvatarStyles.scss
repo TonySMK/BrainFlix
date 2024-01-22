@@ -1,0 +1,27 @@
+@use "../../../styles/partials/bootstrap" as bs;
+@import '../../../styles/partials/variables';
+.avatar__nav, .avatar__formicon{
+    width: 36px;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @include bs.tablet{
+        width: 40px;
+    }
+
+
+    &__img1{
+        height: 100%;
+        transform: scale(1);
+        transform: translateX(7px);
+    }
+
+    &__img2{
+        height: 100%;
+        transform: scale(1);
+    }
+}
+

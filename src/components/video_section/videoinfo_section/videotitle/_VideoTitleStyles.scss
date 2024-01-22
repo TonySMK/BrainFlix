@@ -1,0 +1,27 @@
+@use "../../../../styles/partials/bootstrap" as bs;
+@import "../../../../styles/partials/variables";
+
+.videotitlebackground{
+    @include bs.padding16;
+
+    @include bs.desktop{
+        @include bs.paddingdesktop;
+    }
+}
+.videotitle{
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid $silver-second;
+    @include bs.font700(24px, 32px, $black-prime);
+    
+    @include bs.tablet{
+        @include bs.font700(33px, 44px, $black-prime);
+    }
+
+    @include bs.desktop{
+        border-bottom:0px;
+        padding-bottom: 0rem;
+    }
+
+    padding-right: 2.5rem;
+}

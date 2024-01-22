@@ -1,0 +1,34 @@
+// apply fonts specs shortcut with fontweight*
+@mixin font400($fontsize, $lineheight, $color){
+    font-weight: 400;
+    font-size: $fontsize;
+    line-height: $lineheight;
+    color: $color;
+}
+
+@mixin font700($fontsize, $lineheight, $color){
+    font-weight: 700;
+    font-size: $fontsize;
+    line-height: $lineheight;
+    color: $color;
+}
+
+//apply padding pre-sets
+@mixin padding16{
+    width: 100%;
+    box-sizing: border-box;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+@mixin padding24{
+    width: 100%;
+    box-sizing: border-box;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+@mixin paddingdesktop{
+    padding-left: 0rem;
+    padding-right: 0rem;
+}

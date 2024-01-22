@@ -1,0 +1,32 @@
+@use "../../styles/partials/bootstrap" as bs;
+@import "../../styles/partials/variables";
+
+.nextvideosection{
+    background-color: $white-prime;
+    @include bs.padding16;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 1rem;
+
+    @include bs.desktop{
+        @include bs.padding24;
+        justify-content: flex-start;
+        border-left: 1px solid $silver-second;
+    }
+
+    &__title{
+        text-transform: uppercase;
+        @include bs.font400(13px, 18px, $silver-prime)
+    }
+
+    &__list{
+        // background-color: bisque;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        gap: 1rem
+    }
+}
