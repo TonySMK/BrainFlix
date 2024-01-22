@@ -14,27 +14,22 @@ import CommentComp from "../../components/video_section/videocomments_section/co
 import NextVideoSection from "../../components/nextvideo_section/NextVideoSectionComp";
 import NextVideoCard from "../../components/nextvideo_section/nextvideocard_section/NextVideoCardComp"
 
-export default function PageBody({
-  mainBodyInfo,
-  sideInfoData,
-  apiKey,
-  domain,
-  videoSubdirectory,
-}) {
+export default function PageBody() {
+  let domain = "http://localhost:8080";
+  let videoSubdirectory = "/videos";
+  let apiKey = "?api_key=17gt8c0a-83dc-4b96-856a-5dqwe2772b1";
+
   const { pageId } = useParams();
   const [compState, setCompState] = useState(true);
+  const [MainBodydata, setNewMainBodyData] = useState(null);
 
-  const [newMainBodydata, setNewMainBodyData] = useState(null);
+  const [sideInfoData, setSideInfoData] = useState(null)
+  const [filter, setfilter] = useState(3333333333333333333333333)
 
   let filteredOutTitle;
 
-  if (pageId !== undefined) {
-    mainBodyInfo = newMainBodydata;
-    // this section allows functionality on other page (ex. http://localhost:3000/####...)
-    //page change handler
-  }
-
   useEffect(() => {
+    // this section handles the mainbody info
     if (pageId !== undefined) {
       axios
         .get(domain + videoSubdirectory + `/${pageId}` + apiKey)
@@ -43,32 +38,36 @@ export default function PageBody({
           setCompState(false);
         })
         .catch((e) => console.log("promise broken"));
+
+      
     }else{
-      setCompState(false);
+        axios
+          .get(`${domain}${videoSubdirectory}/VROOLYJIBOSGYRSXTAAFDINPYFDLJQ${apiKey}`)
+          .then((res) => {
+            let intialAppData = res.data;
+            setNewMainBodyData(res.data);
+            setCompState(false);
+          })
+      .catch((error) => {
+        console.log(error);
+      });;
     }
-  }, [pageId, apiKey, domain, videoSubdirectory]);
+  },[pageId, apiKey, domain, videoSubdirectory]);
 
-  if (pageId !== undefined) {
-    // this section starts the handling of what get rendered in the side bar
-    console.log(sideInfoData)
-    let getTitleObject = sideInfoData.find((element) => element.id === pageId);
-    filteredOutTitle = getTitleObject.title;
-  } else {
-    filteredOutTitle = sideInfoData[0].title;
-  }
 
-  const renderedOutTabs = sideInfoData
-    .filter((data2set) => data2set.title !== filteredOutTitle)
-    .map((object) => (
-      <Link
-        key={object.id}
-        to={`/videos/${object.id}`}
-        style={{ textDecoration: "none" }}
-      >
-        <NextVideoCard sidedata={object} onClickNxtShuffle={onClickNxtShuffle} />
-      </Link>
-    ));
-    const [sideDataRender, setSideDataRender] = useState(renderedOutTabs);
+  useEffect(() => {
+    // this seciton handles the side bar info
+    if(pageId === undefined){
+      axios
+      .get(`${domain}${videoSubdirectory}${apiKey}`)
+      .then((res) =>{
+        let sidedata = res.data
+        setSideInfoData(sidedata)
+      })
+    }
+  });
+
+    // const [sideDataRender, setSideDataRender] = useState(renderedOutTabs);
 
     function onClickNxtShuffle(titleofclickeddiv) {
       const updatedrender = sideInfoData
@@ -84,6 +83,21 @@ export default function PageBody({
         setSideDataRender(updatedrender);
     }
 
+    function sidebarrendering(somearray, filterid){
+      const renderedOutTabs = somearray
+      .filter((element) => element.title !== filterid)
+      .map((object) => (
+        <Link
+          key={object.id}
+          to={`/videos/${object.id}`}
+          style={{ textDecoration: "none" }}
+        >
+          <NextVideoCard sidedata={object} onClickNxtShuffle={onClickNxtShuffle} />
+        </Link>
+      ));
+      return renderedOutTabs
+      }
+
   //================================================================
 
   return (
@@ -93,22 +107,22 @@ export default function PageBody({
       ) : (
         <main>
           <VideoComp
-            videodata={mainBodyInfo.video}
-            imagedata={mainBodyInfo.image}
+            videodata={MainBodydata.video}
+            imagedata={MainBodydata.image}
           />
           <section className="dtwarpperbackground">
             <section className="dtwrapper0">
               <section className="dtwrapper1">
-                <VideoTitleComp titledata={mainBodyInfo.title} />
+                <VideoTitleComp titledata={MainBodydata.title} />
                 <VideoStatsComp
-                  channeldata={mainBodyInfo.channel}
-                  timestampdata={dateCoverstion(mainBodyInfo.timestamp)}
-                  likesdata={mainBodyInfo.likes}
-                  viewsdata={mainBodyInfo.views}
+                  channeldata={MainBodydata.channel}
+                  timestampdata={dateCoverstion(MainBodydata.timestamp)}
+                  likesdata={MainBodydata.likes}
+                  viewsdata={MainBodydata.views}
                 />
-                <VideoDescription descriptiondata={mainBodyInfo.description} />
+                <VideoDescription descriptiondata={MainBodydata.description} />
                 <CommentComp
-                  selectedCommentsData={mainBodyInfo.comments}
+                  selectedCommentsData={MainBodydata.comments}
                   apiKey={apiKey}
                   domain={domain}
                   videoSubdirectory={videoSubdirectory}
