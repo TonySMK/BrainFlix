@@ -1,72 +1,76 @@
+// aux import
 import "./App.scss";
 import { Route, Routes } from "react-router-dom";
-import MainPage from "./pages/mainpage/MainBody.jsx";
-import UploadPage from "./pages/uploadpage/Upload.jsx";
-
-import NavBarComp from "./components/navbar_section/NavBarComp.jsx";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-export default function App() {
-  let domain = "https://project-2-api.herokuapp.com";
-  let vidat = "/videos";
-  let apk = "?api_key=17gt8c0a-83dc-4b96-856a-5dqwe2772b1";
+//component imports
+import MainBody from "./pages/mainpage/MainBody.jsx";
+import UploadPage from "./pages/uploadpage/Upload.jsx";
+import NavBarComp from "./components/navbar_section/NavBarComp.jsx";
 
-  const [appstate, setAppState] = useState(true);
-  const [appdata, setAppdata] = useState(null);
-  const [sidedata, setSideData] = useState(null);
+export default function App() {
+  let domain = "http://localhost:8080";
+  let videoSubdirectory = "/videos";
+  let apiKey = "?api_key=17gt8c0a-83dc-4b96-856a-5dqwe2772b1";
+
+  const [compState, setCompState] = useState(true);
+  const [mainBodyInfo, setMainBodyInfo] = useState(null);
+  const [sideInfoData, setSideInfoData] = useState(null);
 
   useEffect(() => {
     axios
-      .get(domain + vidat + apk)
+      .get(domain + videoSubdirectory + apiKey)
       .then((res) => {
-        let sidedata = res.data;
-        setSideData(sidedata);
-        let sidedata0 = sidedata[0].id;
-        return sidedata0;
+        let sideData = res.data[0];
+        setSideInfoData(sideData);
+        let sideDataInitial = sideData[0].id;
+        return sideDataInitial;
       })
-      .then((sidedata0) => {
-        axios.get(`${domain}${vidat}/${sidedata0}${apk}`).then((res) => {
-          let intialappdata = res.data;
-          setAppdata(intialappdata);
-          setAppState(false);
-        });
+      .then((sideDataInitial) => {
+        axios
+          .get(`${domain}${videoSubdirectory}/${sideDataInitial}${apiKey}`)
+          .then((res) => {
+            let intialAppData = res.data;
+            setMainBodyInfo(intialAppData);
+            setCompState(false);
+          });
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [domain, videoSubdirectory, apiKey]);
 
   return (
     <div className="appwrapper">
       <NavBarComp />
-      {appstate ? (
+      {compState ? (
         <section>Loading Data...</section>
       ) : (
         <Routes>
           <Route
             index
             element={
-              <MainPage
+              <MainBody
                 key={"manny"}
-                mainbodyinfo={appdata}
-                sidedata={sidedata}
-                apk={apk}
+                mainBodyInfo={mainBodyInfo}
+                sideInfoData={sideInfoData}
+                apiKey={apiKey}
                 domain={domain}
-                vidat={vidat}
+                videoSubdirectory={videoSubdirectory}
               />
             }
           />
           <Route
-            path="/:pageid"
+            path="/videos/:pageId"
             element={
-              <MainPage
+              <MainBody
                 key={"anny"}
-                mainbodyinfo={appdata}
-                sidedata={sidedata}
-                apk={apk}
+                mainBodyInfo={mainBodyInfo}
+                sideInfoData={sideInfoData}
+                apiKey={apiKey}
                 domain={domain}
-                vidat={vidat}
+                videoSubdirectory={videoSubdirectory}
               />
             }
           />

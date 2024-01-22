@@ -7,18 +7,18 @@ import { useState } from "react";
 
 export default function UploadPage() {
 
-  const [usname, setUSName] = useState("");
-  const [usdescription, setUSDescription] = useState("");
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
 
   const handleUserName = (e) => {
-    setUSName(e.target.value);
+    setName(e.target.value);
   };
   const handleDes = (e) => {
-    setUSDescription(e.target.value);
+    setDescription(e.target.value);
   };
 
   function onclickhander(event) {
-    if (!usname || !usdescription) {
+    if (!name || !description) {
       event.preventDefault()
       alert("There is an empty infomation field.")
     } else{
@@ -48,7 +48,7 @@ export default function UploadPage() {
                 className="uploadform__inputtitle"
                 name="title"
                 onChange={handleUserName}
-                value={usname}
+                value={name}
                 type="text"
                 placeholder="Add a title to your video"
               />
@@ -62,7 +62,7 @@ export default function UploadPage() {
                 className="uploadform__inputdescription"
                 name="des"
                 onChange={handleDes}
-                value={usdescription}
+                value={description}
                 maxLength="500"
                 placeholder="Add a description to your video"
               ></textarea>
