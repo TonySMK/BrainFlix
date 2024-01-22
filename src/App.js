@@ -10,7 +10,7 @@ import UploadPage from "./pages/uploadpage/Upload.jsx";
 import NavBarComp from "./components/navbar_section/NavBarComp.jsx";
 
 export default function App() {
-  let domain = "https://project-2-api.herokuapp.com";
+  let domain = "http://localhost:8080";
   let videoSubdirectory = "/videos";
   let apiKey = "?api_key=17gt8c0a-83dc-4b96-856a-5dqwe2772b1";
 
@@ -22,7 +22,7 @@ export default function App() {
     axios
       .get(domain + videoSubdirectory + apiKey)
       .then((res) => {
-        let sideData = res.data;
+        let sideData = res.data[0];
         setSideInfoData(sideData);
         let sideDataInitial = sideData[0].id;
         return sideDataInitial;
@@ -40,12 +40,7 @@ export default function App() {
         console.log(error);
       });
   }, [domain, videoSubdirectory, apiKey]);
-  /*
-"If you do not pass a dependency array to the useEffect hook, 
-it will default to an empty array."
-https://www.dhiwise.com
-/post/understanding-the-importance-of-the-useeffect-dependency-array-in-react
-*/
+
   return (
     <div className="appwrapper">
       <NavBarComp />

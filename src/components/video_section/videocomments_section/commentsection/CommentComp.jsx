@@ -17,7 +17,7 @@ export default function CommentSection({
   const { pageId } = useParams();
   const [compState, setCompState] = useState(true);
   const [commentState, setCommentState] = useState(selectedCommentsData) // this just set the inital comments array for that tab
-  const defualtPageId = "84e96018-4022-434e-80bf-000ce4cd12b8" // this section allows functionality on defualt page (ex. http://localhost:3000/)
+  const defualtPageId = "VROOLYJIBOSGYRSXTAAFDINPYFDLJQ" // this section allows functionality on defualt page (ex. http://localhost:3000/)
 
 
   function fetchComments(){

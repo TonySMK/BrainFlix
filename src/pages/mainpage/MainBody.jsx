@@ -22,9 +22,7 @@ export default function PageBody({
   videoSubdirectory,
 }) {
   const { pageId } = useParams();
-
   const [compState, setCompState] = useState(true);
-  // async axios data retrievel handling
 
   const [newMainBodydata, setNewMainBodyData] = useState(null);
 
@@ -50,20 +48,9 @@ export default function PageBody({
     }
   }, [pageId, apiKey, domain, videoSubdirectory]);
 
-  //================================================================
-  // this is where we are handling and sending the renderings of the NextVideoCard, instead of inside the NextVideoSection
-
-
-  // by handling stuff in the upper levels, we are able to implement the suggestion of making the child componenets as simple or as "dumb" as possible...
-  // in this case the NextVideoSection does not need to account for pageID..., 
-
-  // instead the worry wil be handled by the parent component and then the final product will be handed down to the child
-  // in essence, we are trying to avoid two things, first, passing the mainbodydata or sidedata as their whole down to the children, instead we are trying to pass only what is really needed
-  // and second, we want the children to have as little responsiblity as possible, we are trying to move as much "under the hood stuff" as high as possible, instead of as low as possible... why...(i do not recognize the answer's essence atm)
-
-  // console.log(sidedata)
-
   if (pageId !== undefined) {
+    // this section starts the handling of what get rendered in the side bar
+    console.log(sideInfoData)
     let getTitleObject = sideInfoData.find((element) => element.id === pageId);
     filteredOutTitle = getTitleObject.title;
   } else {
@@ -82,7 +69,6 @@ export default function PageBody({
       </Link>
     ));
     const [sideDataRender, setSideDataRender] = useState(renderedOutTabs);
-    // console.log(render)
 
     function onClickNxtShuffle(titleofclickeddiv) {
       const updatedrender = sideInfoData
